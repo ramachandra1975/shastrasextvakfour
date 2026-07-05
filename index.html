@@ -2008,12 +2008,946 @@
   });
 })();
 </script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Three: The Discipline Begins</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  .layer-row{border:1px solid var(--rule); background:var(--panel); padding:14px 18px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;}
+  .layer-row:hover{border-color:var(--gold);}
+  .layer-row .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+  .layer-detail{margin-top:8px; font-size:14px; color:var(--parchment-dim); display:none;}
+  .layer-row.open .layer-detail{display:block;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .word-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+  .check-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:14.5px; color:var(--parchment-dim); cursor:pointer;}
+  .check-row .box{width:16px; height:16px; border:1px solid var(--rule); flex-shrink:0;}
+  .check-row.checked .box{background:var(--gold); border-color:var(--gold);}
+  .check-row.checked{color:var(--parchment);}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Three of the Series</div>
+    <h1 class="title">The <em>Discipline</em> Begins</h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section III of the white paper — from architecture to method. Before Prāṇāyāma is revisited or speech's four levels are opened, the mind's own instruments must be named, and the discipline's first two limbs — restraint and observance — must be laid as ground.</p>
+    <div class="epigraph">Every technology names its instruments before it teaches its use. This section names the mind's four instruments, then the two limbs the tradition treats as prerequisite to all the rest.</div>
+    <nav class="toc">
+      <a href="#t11">11 · The Four Parts of the Mind</a>
+      <a href="#t12">12 · Yama — The Five Restraints</a>
+      <a href="#t13">13 · Niyama — The Five Observances</a>
+      <a href="#t14">14 · Āsana — Steady Seat, Not Exercise</a>
+      <a href="#t15">15 · Pratyāhāra — Withdrawal of the Senses</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 11 -->
+  <section class="topic" id="t11">
+    <div class="topic-number">TOPIC 11</div>
+    <h2 class="topic-title">The Four Parts of the Mind</h2>
+    <div class="sanskrit-head mono">अन्तःकरण — the inner instrument, in four parts</div>
+
+    <p class="lede">Topic 2 named Citta as a single field; Topic 6 placed Manomaya as one sheath among five. Classical psychology refines both pictures further, describing what it calls the Antaḥkaraṇa — the "inner instrument" — as four functionally distinct parts working on one shared field rather than four separate minds.</p>
+
+    <h3 class="sub">The Four Named</h3>
+    <p>Manas gathers and organizes raw sense-data into a coherent impression; Buddhi discriminates and decides what that impression means; Ahaṃkāra claims the impression as "mine," generating the sense of a personal owner; and Citta, in this narrower technical use, holds the resulting impression as a retained memory-trace. The four are described as sequential stages of a single act of cognition, not four competing agents.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">बुद्धिर्यस्य न विद्यते तस्य को नाम निश्चयः</div>
+      <div class="shloka-translit">buddhir yasya na vidyate tasya ko nāma niścayaḥ</div>
+      <p class="shloka-trans">"For one in whom Buddhi is absent, what indeed is certainty?"</p>
+      <div class="shloka-source">Classical Sāṅkhya-adjacent formulation, echoed in commentarial literature</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>मनस्</td><td>Manas</td><td>gathers and organizes sense-impressions into a coherent whole</td></tr>
+      <tr><td>बुद्धि</td><td>Buddhi</td><td>discriminates and decides — the discerning faculty, aligned with Vijñānamaya (Topic 6)</td></tr>
+      <tr><td>अहंकार</td><td>Ahaṃkāra</td><td>claims the impression as "mine" — the I-maker</td></tr>
+      <tr><td>चित्त</td><td>Citta (narrow sense)</td><td>retains the impression as memory — here a store, not the whole field of Topic 2</td></tr>
+    </table>
+
+    <h3 class="sub">A Deliberate Ambiguity</h3>
+    <p>It should be flagged plainly that this white paper uses "Citta" in two senses: the broad sense of Topic 2 (the entire field in which all mental activity arises) and this narrower technical sense (one of the field's four functional parts, specialized for memory). The tradition itself is not always consistent on this point across schools, and this section follows the majority convention of treating the broad sense as primary, with the four-part scheme as a finer lens applied within it.</p>
+
+    <div class="widget" id="w11">
+      <div class="widget-label">Interactive · Trace a Single Cognition</div>
+      <div id="antahkaranaSteps"></div>
+      <div class="readout">Click each instrument, in order, to see what it contributes to a single act of seeing a friend across a room.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>The next time you recognize someone, notice how quickly "a face" becomes "my friend" — and try to catch Ahaṃkāra's claim of ownership as it happens.</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>The mind is modeled as one field operating through four functional stages — gathering, discerning, owning, and retaining — a finer lens on Citta that the rest of this section's discipline is designed to steady.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Pick one ordinary perception today and narrate it internally in four steps: "gathered," "discerned," "claimed," "retained." Notice how much faster the sequence usually runs unexamined.</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 6 — Five Koshas</span> · <span>Topic 10 — Citta Vṛttis</span></div>
+  </section>
+
+  <!-- TOPIC 12 -->
+  <section class="topic" id="t12">
+    <div class="topic-number">TOPIC 12</div>
+    <h2 class="topic-title">Yama: The Five Restraints</h2>
+    <div class="sanskrit-head mono">यम — what the discipline asks a practitioner to stop</div>
+
+    <p class="lede">Topic 5 established that yogic discipline asks to be tested as a technology rather than believed as a creed. Consistent with that framing, its first limb is not a technique at all but a set of ethical restraints — conditions the tradition treats as necessary before any of the finer instruments already named can be relied upon.</p>
+
+    <h3 class="sub">The Textual List</h3>
+    <p>Patañjali names five: non-harming, truthfulness, non-stealing, a disciplined use of vital energy traditionally rendered as continence, and non-possessiveness. The sūtras present these not as commandments owed to an external authority, but as the removal of disturbances that would otherwise agitate Citta before any concentration practice could take hold.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">अहिंसासत्यास्तेयब्रह्मचर्यापरिग्रहा यमाः</div>
+      <div class="shloka-translit">ahiṃsā-satya-asteya-brahmacarya-aparigrahāḥ yamāḥ</div>
+      <p class="shloka-trans">"Non-harming, truthfulness, non-stealing, disciplined vitality, and non-possessiveness are the restraints."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.30</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>अहिंसा</td><td>Ahiṃsā</td><td>non-harming, in thought, word, and act</td></tr>
+      <tr><td>सत्य</td><td>Satya</td><td>truthfulness — developed fully as its own topic ahead</td></tr>
+      <tr><td>अस्तेय</td><td>Asteya</td><td>non-stealing, including of credit, time, or attention</td></tr>
+      <tr><td>ब्रह्मचर्य</td><td>Brahmacarya</td><td>disciplined use of vital energy, not reducible to celibacy alone</td></tr>
+      <tr><td>अपरिग्रह</td><td>Aparigraha</td><td>non-possessiveness — taking only what is needed</td></tr>
+    </table>
+
+    <h3 class="sub">Why Restraint Precedes Technique</h3>
+    <p>The ordering is deliberate: a practitioner whose speech is untruthful, whose actions cause harm, or whose relationship to possessions is grasping is, on this model, generating fresh disturbance in Citta faster than any breathing or concentration technique could settle it. Restraint is not moral decoration on top of the technology — it is offered as the technology's precondition, the way a stable table is a precondition for balancing something on it.</p>
+
+    <div class="widget" id="w12">
+      <div class="widget-label">Interactive · Check the Five Restraints</div>
+      <div id="yamaChecklist"></div>
+      <div class="readout" id="yamaReadout">Check any restraint you practiced today, even imperfectly.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Of the five, which one costs you the most effort to maintain on an ordinary day — and what does that tell you about where your own Citta is most easily disturbed?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>The discipline's first limb is restraint from harm, falsehood, theft, dissipation, and grasping — offered not as external commandments but as the removal of self-generated disturbance the later techniques depend on.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Choose one restraint and hold it with unusual precision for a single day — not five at once. Notice what becomes easier in concentration or breath practice as a result.</div>
+    <div class="crosslinks">See also: <span>Topic 13 — Niyama</span> · <span>Topic 19 — Truth (Satya)</span> · <span>Topic 5 — Yogic Discipline as Technology</span></div>
+  </section>
+
+  <!-- TOPIC 13 -->
+  <section class="topic" id="t13">
+    <div class="topic-number">TOPIC 13</div>
+    <h2 class="topic-title">Niyama: The Five Observances</h2>
+    <div class="sanskrit-head mono">नियम — what the discipline asks a practitioner to keep</div>
+
+    <p class="lede">Where Yama removes disturbance by restraint, Niyama builds capacity by observance — five positive practices the tradition pairs with the five restraints as a complementary limb, addressed inward toward the practitioner's own conduct rather than outward toward others.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">शौचसन्तोषतपःस्वाध्यायेश्वरप्रणिधानानि नियमाः</div>
+      <div class="shloka-translit">śauca-santoṣa-tapaḥ-svādhyāya-īśvara-praṇidhānāni niyamāḥ</div>
+      <p class="shloka-trans">"Purity, contentment, disciplined effort, self-study, and surrender to a higher principle are the observances."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.32</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>शौच</td><td>Śauca</td><td>purity — of body, environment, and mental content</td></tr>
+      <tr><td>सन्तोष</td><td>Santoṣa</td><td>contentment with what is present, independent of circumstance</td></tr>
+      <tr><td>तपस्</td><td>Tapas</td><td>disciplined effort; literally "heat" — the friction that burns off inertia</td></tr>
+      <tr><td>स्वाध्याय</td><td>Svādhyāya</td><td>self-study, including study of the texts this white paper itself draws on</td></tr>
+      <tr><td>ईश्वरप्रणिधान</td><td>Īśvara-praṇidhāna</td><td>surrender of the outcome of effort to a principle larger than the individual will</td></tr>
+    </table>
+
+    <h3 class="sub">Restraint and Observance as a Pair</h3>
+    <p>Read against Topic 12, a pattern emerges: each Yama removes a disturbance and each Niyama cultivates a corresponding capacity. Non-harming clears space that purity then fills; non-possessiveness empties the hand that contentment then rests in. The tradition does not treat the two limbs as a checklist of ten unrelated items, but as five paired movements of subtraction and addition.</p>
+
+    <div class="widget" id="w13">
+      <div class="widget-label">Interactive · Pair Restraint With Observance</div>
+      <div class="btn-row" id="niyamaButtons">
+        <button class="word-btn" data-key="sauca">Śauca</button>
+        <button class="word-btn" data-key="santosa">Santoṣa</button>
+        <button class="word-btn" data-key="tapas">Tapas</button>
+        <button class="word-btn" data-key="svadhyaya">Svādhyāya</button>
+        <button class="word-btn" data-key="isvara">Īśvara-praṇidhāna</button>
+      </div>
+      <div class="consequence-box" id="niyamaBox">Choose an observance to see the restraint it pairs with, and what it adds.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Which observance would feel most artificial if you tried to practice it without first holding its paired restraint?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Niyama supplies five positive observances — purity, contentment, effort, self-study, and surrender — each completing a restraint from Topic 12 by filling the space that restraint clears.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Take the one restraint you chose in Topic 12's practice and add its paired observance for a second day. Notice whether the pair feels more stable than either alone.</div>
+    <div class="crosslinks">See also: <span>Topic 12 — Yama</span> · <span>Topic 36 — Daily Sādhana</span></div>
+  </section>
+
+  <!-- TOPIC 14 -->
+  <section class="topic" id="t14">
+    <div class="topic-number">TOPIC 14</div>
+    <h2 class="topic-title">Āsana: Steady Seat, Not Exercise</h2>
+    <div class="sanskrit-head mono">आसन — a seat held without struggle</div>
+
+    <p class="lede">Of all the limbs of yoga, Āsana has traveled furthest from its textual definition in popular use. Patañjali's own description is a single, minimal sūtra — and it says nothing at all about flexibility, fitness, or the variety of postures a modern student might associate with the word.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">स्थिरसुखमासनम्</div>
+      <div class="shloka-translit">sthira-sukham āsanam</div>
+      <p class="shloka-trans">"Āsana is a steady and comfortable [seat]."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.46</div>
+    </div>
+
+    <h3 class="sub">Two Conditions, Not a Shape</h3>
+    <p>The sūtra specifies two conditions — steadiness (sthira) and ease (sukha) — and specifies no particular shape at all. A posture that is steady but strained fails the definition as surely as one that is comfortable but collapsed. The purpose given in the following sūtras is narrow and specific: a seat held without struggle so that attention, once free of managing the body, can be directed toward the finer work of breath (Topics 7–8) and concentration (ahead in this section).</p>
+
+    <table class="term-table">
+      <tr><td>स्थिर</td><td>Sthira</td><td>steady, unwavering — the postural condition of stability</td></tr>
+      <tr><td>सुख</td><td>Sukha</td><td>at ease, without strain — the postural condition of comfort</td></tr>
+      <tr><td>प्रयत्नशैथिल्य</td><td>Prayatna-śaithilya</td><td>the "loosening of effort" the sūtras prescribe once the seat is found</td></tr>
+    </table>
+
+    <p>Later sūtras add that the seat is mastered when effort relaxes and the mind settles on the infinite — a criterion measured by what happens to attention, not by which posture is achieved. On this definition, a specific reclining or seated position held steadily and without strain for meditation satisfies Āsana as fully as any elaborate posture might, provided both conditions are genuinely met.</p>
+
+    <div class="widget" id="w14">
+      <div class="widget-label">Interactive · Steady and Easeful — Or Neither?</div>
+      <svg width="100%" height="180" viewBox="0 0 600 180" id="asanaSvg">
+        <line x1="60" y1="150" x2="540" y2="150" stroke="#3A3B44" stroke-width="1"/>
+        <line x1="60" y1="30" x2="60" y2="150" stroke="#3A3B44" stroke-width="1"/>
+        <text x="30" y="35" fill="#525C8C" font-family="JetBrains Mono" font-size="10">STEADY</text>
+        <text x="30" y="150" fill="#525C8C" font-family="JetBrains Mono" font-size="10">STRAINED</text>
+        <text x="65" y="170" fill="#9C5A34" font-family="JetBrains Mono" font-size="10">RIGID</text>
+        <text x="480" y="170" fill="#9C5A34" font-family="JetBrains Mono" font-size="10">AT EASE</text>
+        <circle id="asanaDot" cx="300" cy="90" r="9" fill="#B9922A"/>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" data-x="0.1" data-y="0.9">Rigid &amp; Strained</button>
+        <button class="pill" data-x="0.9" data-y="0.9">Collapsed &amp; Loose</button>
+        <button class="pill" data-x="0.5" data-y="0.1">Steady &amp; Easeful</button>
+      </div>
+      <div class="readout" id="asanaReadout">Only the upper-right corner — steady and at ease together — satisfies Patañjali's definition.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>In your own posture right now, are you closer to rigid, closer to collapsed, or genuinely both steady and at ease?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Āsana is defined by two conditions — steadiness and ease held together — not by a specific shape, and its purpose is to free attention for the subtler work the remaining limbs require.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Sit in whatever position you can hold steadily and without strain for three minutes. If either condition fails before the time is up, adjust once, then stay.</div>
+    <div class="crosslinks">See also: <span>Topic 5 — Yogic Discipline as Technology</span> · <span>Topic 15 — Pratyāhāra</span></div>
+  </section>
+
+  <!-- TOPIC 15 -->
+  <section class="topic" id="t15">
+    <div class="topic-number">TOPIC 15</div>
+    <h2 class="topic-title">Pratyāhāra: Withdrawal of the Senses</h2>
+    <div class="sanskrit-head mono">प्रत्याहार — the senses turned inward</div>
+
+    <p class="lede">With a steady seat established in Topic 14, the discipline turns to a limb often skipped in modern practice yet treated by the classical texts as the pivotal hinge between the outward-facing limbs (Yama through Āsana) and the inward-facing ones still ahead: the withdrawal of the senses from their objects.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">स्वविषयासम्प्रयोगे चित्तस्वरूपानुकार इवेन्द्रियाणां प्रत्याहारः</div>
+      <div class="shloka-translit">sva-viṣaya-asamprayoge citta-svarūpa-anukāra iva indriyāṇāṃ pratyāhāraḥ</div>
+      <p class="shloka-trans">"Pratyāhāra is, as it were, the senses imitating the nature of Citta itself, by disengaging from their own objects."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.54</div>
+    </div>
+
+    <h3 class="sub">A Precise and Unusual Image</h3>
+    <p>The sūtra's simile is easy to pass over: the senses are said to withdraw not by force, but by imitating Citta — the way, per Topic 2, a settled sky is undisturbed by whichever cloud passes through it. Just as Citta need not chase or suppress a thought to remain unmoved by it, the eye or ear, in this state, need not chase or suppress a sight or sound to remain undrawn by it. The withdrawal is described as a natural following, not a forced shutting-off.</p>
+
+    <table class="term-table">
+      <tr><td>इन्द्रिय</td><td>Indriya</td><td>a sense faculty — the five organs of perception</td></tr>
+      <tr><td>विषय</td><td>Viṣaya</td><td>a sense-object — what a given Indriya is ordinarily drawn toward</td></tr>
+      <tr><td>असम्प्रयोग</td><td>Asamprayoga</td><td>non-engagement — the disconnection of sense from object that defines this limb</td></tr>
+    </table>
+
+    <p>Placed against the Antaḥkaraṇa of Topic 11, Pratyāhāra can be read as a check on the very first stage of cognition: if Manas no longer automatically gathers whatever the senses present, the entire downstream sequence — discernment, ownership, retention — has far less unrequested material to process at all.</p>
+
+    <div class="widget" id="w15">
+      <div class="widget-label">Interactive · Withdraw One Sense at a Time</div>
+      <div id="pratyaharaLayers"></div>
+      <div class="readout">Click each sense to see what withdrawing its automatic pull is said to accomplish.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Notice a sound in your environment right now. Can you register that it exists without your attention being pulled toward it — the way the sūtra describes?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Pratyāhāra withdraws the senses from their objects not by force but by imitation of Citta's own unmoved stability, reducing the raw material the mind's four instruments would otherwise have to process — the hinge between the outward and inward limbs of the discipline.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Sit for two minutes with eyes closed. When a sound arises, note "a sound" without turning attention fully toward identifying or judging it, the way Topic 2 asked you to note "a cloud."</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 11 — The Four Parts of the Mind</span> · <span>Topic 16 — Dhāraṇā</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>Ground Cleared, Instrument Named</h2>
+    <p>Section III has named the mind's four working parts and laid the discipline's first four limbs: restraint clearing disturbance, observance building capacity, a steady seat freeing attention from the body, and withdrawal disengaging the senses from their objects. What remains before absorption is concentration itself.</p>
+    <p>Section IV turns to the inward limbs proper — concentration, the return of speech's four hidden levels first named in Topic 3, sustained attention, truthfulness examined as the discipline's own tested case, and the eighth limb of absorption.</p>
+    <div class="next">NEXT IN THE SERIES → Part Four — The Inward Limbs (Topics 16–20): Dhāraṇā, The Four Levels of Speech, Dhyāna, Truth (Satya), and Samādhi.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function(){
+  const container = document.getElementById('antahkaranaSteps');
+  const steps = [
+    ['1. Manas gathers', 'The eye registers shapes and color across the room; Manas organizes the raw data into a single coherent impression: "a face."'],
+    ['2. Buddhi discerns', 'Buddhi compares the impression against memory and judges: "this is a known face, not a stranger\'s."'],
+    ['3. Ahaṃkāra claims', 'Ahaṃkāra attaches ownership to the judgment: "this is my friend," generating the personal stake in what follows.'],
+    ['4. Citta retains', 'The completed impression, now personally claimed, is stored as a memory-trace available for Topic 10\'s Smṛti to draw on later.']
+  ];
+  steps.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+(function(){
+  const container = document.getElementById('yamaChecklist');
+  const readout = document.getElementById('yamaReadout');
+  const items = ['Ahiṃsā — non-harming', 'Satya — truthfulness', 'Asteya — non-stealing', 'Brahmacarya — disciplined vitality', 'Aparigraha — non-possessiveness'];
+  let checked = 0;
+  items.forEach(label=>{
+    const row = document.createElement('div');
+    row.className = 'check-row';
+    row.innerHTML = `<div class="box"></div><div>${label}</div>`;
+    row.addEventListener('click', ()=>{
+      row.classList.toggle('checked');
+      checked = document.querySelectorAll('#yamaChecklist .check-row.checked').length;
+      readout.textContent = checked===0 ? 'Check any restraint you practiced today, even imperfectly.' : `${checked} of 5 held today — Yama is a daily renewal, not a permanent achievement.`;
+    });
+    container.appendChild(row);
+  });
+})();
+
+(function(){
+  const buttons = document.querySelectorAll('#niyamaButtons .word-btn');
+  const box = document.getElementById('niyamaBox');
+  const info = {
+    sauca: 'Śauca pairs with Ahiṃsā: once harm is restrained, purity of body and mind has room to be cultivated.',
+    santosa: 'Santoṣa pairs with Aparigraha: once grasping is restrained, contentment with what remains becomes possible.',
+    tapas: 'Tapas pairs with Brahmacarya: once dissipation is restrained, disciplined effort has energy to draw on.',
+    svadhyaya: 'Svādhyāya pairs with Satya: once falsehood is restrained, self-study yields an honest rather than flattering picture.',
+    isvara: 'Īśvara-praṇidhāna pairs with Asteya: once taking is restrained, surrender of outcome completes the release of grasping.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      box.textContent = info[b.dataset.key];
+    });
+  });
+})();
+
+(function(){
+  const dot = document.getElementById('asanaDot');
+  const readout = document.getElementById('asanaReadout');
+  const svg = document.getElementById('asanaSvg');
+  const buttons = svg.parentElement.querySelectorAll('.pill');
+  const messages = {
+    '0.1,0.9': 'Rigid and strained fails Sukha — steadiness without ease is not Āsana.',
+    '0.9,0.9': 'Collapsed and loose fails Sthira — ease without steadiness is not Āsana either.',
+    '0.5,0.1': 'Steady and at ease together — this is what the sūtra actually asks for.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const x = 60 + parseFloat(b.dataset.x)*480;
+      const y = 30 + parseFloat(b.dataset.y)*120;
+      dot.setAttribute('cx', x); dot.setAttribute('cy', y);
+      readout.textContent = messages[`${b.dataset.x},${b.dataset.y}`];
+    });
+  });
+})();
+
+(function(){
+  const container = document.getElementById('pratyaharaLayers');
+  const senses = [
+    ['Sight', 'Withdrawn from compulsively scanning for novelty, the eye stops feeding Manas a constant stream of new impressions to process.'],
+    ['Hearing', 'Withdrawn from chasing every sound to its source, the ear allows a sound to register and pass without triggering the full cognitive sequence of Topic 11.'],
+    ['Smell, Taste, Touch', 'The subtler senses, withdrawn the same way, stop generating the small preferences and aversions that would otherwise agitate Citta between formal practice sessions.']
+  ];
+  senses.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+</script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Four: The Inward Limbs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  .layer-row{border:1px solid var(--rule); background:var(--panel); padding:14px 18px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;}
+  .layer-row:hover{border-color:var(--gold);}
+  .layer-row .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+  .layer-detail{margin-top:8px; font-size:14px; color:var(--parchment-dim); display:none;}
+  .layer-row.open .layer-detail{display:block;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .word-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Four of the Series</div>
+    <h1 class="title">The <em>Inward</em> Limbs</h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section IV of the white paper — with the senses withdrawn (Topic 15), attention turns fully inward: concentration, the return of Vāk's four hidden levels, sustained attention, truthfulness as the discipline's own tested case, and the absorption these limbs converge toward.</p>
+    <div class="epigraph">Vaikharī was the last word out. Here the paper walks back down the three levels beneath it — the very levels concentration and sustained attention are trained to notice.</div>
+    <nav class="toc">
+      <a href="#t16">16 · Dhāraṇā — Concentration, One Point</a>
+      <a href="#t17">17 · The Four Levels of Speech</a>
+      <a href="#t18">18 · Dhyāna — Sustained Attention</a>
+      <a href="#t19">19 · Truth (Satya) Examined</a>
+      <a href="#t20">20 · Samādhi — Absorption</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 16 -->
+  <section class="topic" id="t16">
+    <div class="topic-number">TOPIC 16</div>
+    <h2 class="topic-title">Dhāraṇā: Concentration, One Point</h2>
+    <div class="sanskrit-head mono">धारणा — binding attention to a single place</div>
+
+    <p class="lede">With the senses withdrawn from their objects in Topic 15, the discipline's sixth limb gives the freed attention somewhere specific to go: a single point, held, rather than left to drift back toward the habitual gathering-discerning-claiming sequence of Topic 11.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">देशबन्धश्चित्तस्य धारणा</div>
+      <div class="shloka-translit">deśa-bandhaḥ cittasya dhāraṇā</div>
+      <p class="shloka-trans">"Dhāraṇā is the binding of Citta to a single place."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.1</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>देश</td><td>Deśa</td><td>a place — any single point of focus: a breath, a sound, an image, a concept</td></tr>
+      <tr><td>बन्ध</td><td>Bandha (here)</td><td>binding — not force, but a repeated, gentle return to the same point</td></tr>
+    </table>
+
+    <p>The definition is deliberately unspecific about what the "place" must be. A practitioner may bind attention to the sensation of breath at the nostrils, to the sound of a repeated syllable, or to a visualized form — the object varies by lineage and purpose, but the structural requirement, a single sustained point rather than several, does not.</p>
+
+    <div class="widget" id="w16">
+      <div class="widget-label">Interactive · One Point, Held</div>
+      <svg width="100%" height="160" viewBox="0 0 600 160" id="dharanaSvg">
+        <circle cx="300" cy="80" r="6" fill="#B9922A"/>
+        <g id="wanderDots"></g>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="scatterBtn">Let Attention Wander</button>
+        <button class="pill" id="bindBtn">Bind to One Point</button>
+      </div>
+      <div class="readout" id="dharanaReadout">Click "Let Attention Wander" to see several points compete, then "Bind to One Point" to see Dhāraṇā's effect.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Choose one point right now — the breath at your nostrils will do — and hold attention there for ten full seconds. Count how many times it slipped.</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Dhāraṇā binds Citta to a single chosen point through repeated, gentle return — the structural requirement is singularity of object, not any particular object.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Pick one point of focus for one minute. Each time attention slips, return it without self-criticism — the return itself is the practice, not the absence of slipping.</div>
+    <div class="crosslinks">See also: <span>Topic 15 — Pratyāhāra</span> · <span>Topic 18 — Dhyāna</span> · <span>Topic 20 — Samādhi</span></div>
+  </section>
+
+  <!-- TOPIC 17 -->
+  <section class="topic" id="t17">
+    <div class="topic-number">TOPIC 17</div>
+    <h2 class="topic-title">The Four Levels of Speech</h2>
+    <div class="sanskrit-head mono">परा पश्यन्ती मध्यमा वैखरी — four steps, one word</div>
+
+    <p class="lede">Topic 3 introduced the Ṛgveda's claim that speech has four graded levels, of which only the outermost is spoken aloud, and promised the full scheme here. With concentration now named, the promise can be kept: this is also the scheme Dhāraṇā and the coming Dhyāna are, in Tantric and grammarian traditions, sometimes trained specifically to trace.</p>
+
+    <h3 class="sub">The Four, Outermost to Innermost</h3>
+    <p>Vaikharī is the spoken word itself — audible, articulated, the level ordinary listeners hear. Madhyamā is the internally formed sentence, already structured with grammar and sequence, prior to vocalization. Paśyantī is described as "seeing" speech — an intuitive, unitary flash of meaning that has not yet unfolded into words or grammar at all. Para is the most subtle level, the undifferentiated potential of speech at rest, prior to any distinction of meaning.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">वैखरी मध्यमा चैव पश्यन्ती च तथा परा</div>
+      <div class="shloka-translit">vaikharī madhyamā caiva paśyantī ca tathā parā</div>
+      <p class="shloka-trans">"Vaikharī, Madhyamā, and likewise Paśyantī and Para."</p>
+      <div class="shloka-source">Grammarian tradition following Bhartṛhari's Vākyapadīya, echoing Ṛgveda 1.164.45</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>परा</td><td>Para</td><td>the subtlest level — undifferentiated potential, prior to meaning</td></tr>
+      <tr><td>पश्यन्ती</td><td>Paśyantī</td><td>"seeing" speech — a unitary intuitive flash, prior to grammar</td></tr>
+      <tr><td>मध्यमा</td><td>Madhyamā</td><td>the internally formed sentence, structured but not yet voiced</td></tr>
+      <tr><td>वैखरी</td><td>Vaikharī</td><td>the spoken word — the only level an outside listener ever hears</td></tr>
+    </table>
+
+    <h3 class="sub">Why the Scheme Matters Practically</h3>
+    <p>Read against Topic 9's placement of Vāk at the throat and Topic 7's Udāna current, the four levels give the whole process a finer resolution: Para and Paśyantī correspond roughly to a pre-verbal sense that "something wants to be said," Madhyamā to the sentence assembling itself, and Vaikharī to Udāna finally carrying it out through the throat. A speaker who notices tension or mismatch between Paśyantī's original intuition and Vaikharī's final wording is, on this model, catching a distortion introduced somewhere in Madhyamā.</p>
+
+    <div class="widget" id="w17">
+      <div class="widget-label">Interactive · Descend Through the Four Levels</div>
+      <div id="vakLevels"></div>
+      <div class="readout">Click each level, from Vaikharī inward to Para, to trace a spoken sentence back to its source.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a time your spoken words (Vaikharī) felt like they betrayed what you actually meant (Paśyantī). Where, between the two, do you think the distortion entered?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Speech is modeled as four graded levels — Para, Paśyantī, Madhyamā, Vaikharī — of which ordinary speaking is only the last and most compressed, giving concentration practice a specific, fine-grained object to trace inward.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before your next sentence of consequence, pause at the felt sense that "something wants to be said" before any words form, and notice how much is already present at that stage alone.</div>
+    <div class="crosslinks">See also: <span>Topic 3 — Vāk</span> · <span>Topic 7 — Five Prāṇas</span> · <span>Topic 9 — Cakras as Centers of Expression</span></div>
+  </section>
+
+  <!-- TOPIC 18 -->
+  <section class="topic" id="t18">
+    <div class="topic-number">TOPIC 18</div>
+    <h2 class="topic-title">Dhyāna: Sustained Attention</h2>
+    <div class="sanskrit-head mono">ध्यान — the single point, uninterrupted</div>
+
+    <p class="lede">Dhāraṇā binds attention to one point; Dhyāna is what that binding becomes when it holds without interruption. The distinction the tradition draws is one of continuity rather than a difference in object or technique — the same single point, no longer repeatedly re-caught, but sustained.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तत्र प्रत्ययैकतानता ध्यानम्</div>
+      <div class="shloka-translit">tatra pratyaya-ikatānatā dhyānam</div>
+      <p class="shloka-trans">"There, an unbroken flow of a single cognition is Dhyāna."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.2</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>प्रत्यय</td><td>Pratyaya</td><td>a single cognition or content of awareness</td></tr>
+      <tr><td>एकतानता</td><td>Ekatānatā</td><td>an unbroken, single-stranded flow — the defining quality of Dhyāna</td></tr>
+    </table>
+
+    <h3 class="sub">Dhāraṇā and Dhyāna Compared</h3>
+    <p>In Dhāraṇā, attention is bound to a point but still interrupted, requiring the repeated gentle return that Topic 16 described as the practice itself. In Dhyāna, that return is no longer needed because the flow toward the object has become continuous — not effortful holding, but effortless sustaining. The tradition treats this as a difference of degree along one continuous practice, not a separate technique requiring new instructions.</p>
+
+    <div class="widget" id="w18">
+      <div class="widget-label">Interactive · From Interrupted to Unbroken</div>
+      <svg width="100%" height="140" viewBox="0 0 600 140" id="dhyanaSvg">
+        <line id="dhyanaLine" x1="40" y1="70" x2="560" y2="70" stroke="#3A3B44" stroke-width="4" stroke-dasharray="10,14"/>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="dharanaModeBtn">Show Dhāraṇā (Interrupted)</button>
+        <button class="pill" id="dhyanaModeBtn">Show Dhyāna (Unbroken)</button>
+      </div>
+      <div class="readout" id="dhyanaReadout">Toggle between the two to see the same line, broken or continuous.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall an activity — reading, listening to music, working with your hands — where attention has, without effort, held unbroken for several minutes. What made the return unnecessary there?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Dhyāna is Dhāraṇā's continuity perfected — the same single point of focus, no longer requiring repeated return because the flow of attention toward it has become unbroken.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Extend yesterday's one-minute Dhāraṇā practice to three minutes, and notice at what point, if any, the felt need to "return" attention disappears on its own.</div>
+    <div class="crosslinks">See also: <span>Topic 16 — Dhāraṇā</span> · <span>Topic 20 — Samādhi</span></div>
+  </section>
+
+  <!-- TOPIC 19 -->
+  <section class="topic" id="t19">
+    <div class="topic-number">TOPIC 19</div>
+    <h2 class="topic-title">Truth (Satya) Examined</h2>
+    <div class="sanskrit-head mono">सत्य — the restraint the whole paper depends on</div>
+
+    <p class="lede">Topic 12 listed Satya as one of five restraints without pausing on it. It is worth returning to on its own, because of all the Yamas it is the one this white paper's entire method — set out in Topic 5 as testable practice rather than required belief — most directly depends on.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">सत्यप्रतिष्ठायां क्रियाफलाश्रयत्वम्</div>
+      <div class="shloka-translit">satya-pratiṣṭhāyāṃ kriyā-phala-āśrayatvam</div>
+      <p class="shloka-trans">"When truthfulness is firmly established, action and its fruit become dependent on it [the speaker's word]."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.36</div>
+    </div>
+
+    <h3 class="sub">A Strong and Testable Claim</h3>
+    <p>The sūtra makes an unusually strong claim: a speaker whose truthfulness is fully established is said to have their words bear fruit as a matter of course — what they say tends to come to pass. Read charitably rather than magically, the claim tracks something observable: a person known never to distort what they say accumulates a kind of reliability that changes how their statements function in the world, independent of any supernatural mechanism.</p>
+
+    <table class="term-table">
+      <tr><td>सत्य</td><td>Satya</td><td>truthfulness — alignment of speech with what is actually the case</td></tr>
+      <tr><td>प्रतिष्ठा</td><td>Pratiṣṭhā</td><td>firm establishment — truthfulness held consistently, not occasionally</td></tr>
+      <tr><td>क्रियाफल</td><td>Kriyā-phala</td><td>the fruit or outcome of an action, here bound to the speaker's word</td></tr>
+    </table>
+
+    <p>Placed against Topic 3's claim that a spoken word grows outward into a forest of consequence, Satya can be read as the discipline that determines what kind of forest grows: a word aligned with fact grows toward outcomes a listener can build on; a word misaligned with fact grows toward confusion that the speaker eventually has to account for.</p>
+
+    <div class="widget" id="w19">
+      <div class="widget-label">Interactive · Trace Two Forests</div>
+      <div class="btn-row" id="satyaButtons">
+        <button class="word-btn" data-key="true">Spoke the truth, plainly</button>
+        <button class="word-btn" data-key="false">Shaded the truth, slightly</button>
+      </div>
+      <div class="consequence-box" id="satyaBox">Choose an option to see where each path tends to lead.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a small, low-stakes untruth you told recently. What did you actually have to manage afterward that a plain truth would not have required?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Satya is presented not as an abstract virtue but as the specific restraint that determines whether a speaker's word can be relied on — the discipline underneath Topic 3's claim that speech has consequences.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>For one day, before speaking any statement of fact, silently confirm you believe it to be accurate. Notice how often the check changes what you were about to say.</div>
+    <div class="crosslinks">See also: <span>Topic 3 — Vāk</span> · <span>Topic 12 — Yama</span> · <span>Topic 17 — The Four Levels of Speech</span></div>
+  </section>
+
+  <!-- TOPIC 20 -->
+  <section class="topic" id="t20">
+    <div class="topic-number">TOPIC 20</div>
+    <h2 class="topic-title">Samādhi: Absorption</h2>
+    <div class="sanskrit-head mono">समाधि — the object alone remains</div>
+
+    <p class="lede">The eighth and final limb completes the arc this section opened: Dhāraṇā bound attention to a point, Dhyāna sustained that binding without interruption, and Samādhi names what happens when the sense of a separate observer holding the point dissolves into the point itself.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तदेवार्थमात्रनिर्भासं स्वरूपशून्यमिव समाधिः</div>
+      <div class="shloka-translit">tad eva artha-mātra-nirbhāsaṃ svarūpa-śūnyam iva samādhiḥ</div>
+      <p class="shloka-trans">"That same [Dhyāna], shining forth as the object alone, as if empty of its own form, is Samādhi."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.3</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>अर्थमात्र</td><td>Artha-mātra</td><td>the object alone — nothing left over but what is being attended to</td></tr>
+      <tr><td>स्वरूपशून्य</td><td>Svarūpa-śūnya</td><td>"as if empty of its own form" — the attending self momentarily unfelt as separate</td></tr>
+    </table>
+
+    <h3 class="sub">The Three as One Continuous Movement</h3>
+    <p>Patañjali is explicit that Dhāraṇā, Dhyāna, and Samādhi are not three separate techniques but one practice named at three depths, given the collective name Saṃyama when applied together to a single object. The progression traced across Topics 16, 18, and 20 is therefore not a sequence of different exercises but one exercise deepening: bound, then unbroken, then absorbed.</p>
+
+    <p>Read back across this entire white paper, Samādhi returns the discussion to where Topic 2 began: Citta as sky, thought as cloud. In Samādhi, the sky is said to be so still that, for the duration of the state, no cloud is felt as separate from it at all — not because thought has been forced to stop, but because the distinction between observer and observed has, for that period, nothing left to hold it apart.</p>
+
+    <div class="widget" id="w20">
+      <div class="widget-label">Interactive · One Practice, Three Depths</div>
+      <div id="samyamaSteps"></div>
+      <div class="readout">Click each depth in order to see how one practice — attention to a single point — deepens across all three.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Has there been a moment — in practice, in work, in listening to music — where the sense of "you, watching" briefly disappeared into what you were watching? What was that moment like to return from?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Samādhi is not a separate technique but the deepening of Dhāraṇā and Dhyāna to the point where the observer is no longer felt as separate from the object observed — the culmination of the discipline this entire section has built, limb by limb.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Extend the Dhyāna practice from Topic 18 for as long as comfortably possible in a single sitting, without seeking Samādhi directly — the texts are consistent that reaching for it delays it.</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 16 — Dhāraṇā</span> · <span>Topic 18 — Dhyāna</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>Eight Limbs, One Movement</h2>
+    <p>Section IV completes the eightfold discipline that Section III began: concentration bound attention to a single point, the four levels of speech gave that attention a specific and finely graded object to trace, sustained attention removed the need for repeated return, truthfulness was examined as the restraint the entire method depends on for reliability, and absorption named the dissolving of observer from observed that the discipline was aimed at from Topic 2 onward.</p>
+    <p>Section V turns outward again, from the individual practitioner's inner architecture to the wider physics of expression: the three Guṇas that qualify all of nature including Citta itself, the grammarian theory of Sphoṭa — the idea a word carries whole before it is ever spoken — and a return to Prāṇāyāma at a depth beyond mechanical breathing.</p>
+    <div class="next">NEXT IN THE SERIES → Part Five — Beyond the Word (Topics 21–23): The Three Guṇas, Sphoṭa, and Prāṇāyāma Beyond Breathing.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function(){
+  const svg = document.getElementById('dharanaSvg');
+  const wanderDots = document.getElementById('wanderDots');
+  const readout = document.getElementById('dharanaReadout');
+  document.getElementById('scatterBtn').addEventListener('click', ()=>{
+    wanderDots.innerHTML = '';
+    const positions = [[120,40],[480,50],[90,120],[500,110],[220,130],[380,30]];
+    positions.forEach(([x,y])=>{
+      const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 5);
+      c.setAttribute('fill', '#525C8C'); c.setAttribute('opacity', '0.7');
+      wanderDots.appendChild(c);
+    });
+    readout.textContent = 'Several competing points — this is attention before Dhāraṇā, pulled in many directions at once.';
+  });
+  document.getElementById('bindBtn').addEventListener('click', ()=>{
+    wanderDots.innerHTML = '';
+    readout.textContent = 'One point remains. Dhāraṇā is the repeated, gentle return to this single place whenever attention drifts.';
+  });
+})();
+
+(function(){
+  const container = document.getElementById('vakLevels');
+  const levels = [
+    ['Vaikharī — Spoken', 'The audible, articulated word — what a listener actually hears, the outermost and final level.'],
+    ['Madhyamā — Formed', 'The sentence already structured with grammar and sequence, held internally just prior to vocalization.'],
+    ['Paśyantī — Seen', 'A unitary, intuitive flash of meaning, whole and undivided, prior to any grammar or sequence at all.'],
+    ['Para — Potential', 'The most subtle level: undifferentiated potential, prior to any distinction of meaning whatsoever.']
+  ];
+  levels.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+(function(){
+  const line = document.getElementById('dhyanaLine');
+  const readout = document.getElementById('dhyanaReadout');
+  document.getElementById('dharanaModeBtn').addEventListener('click', ()=>{
+    line.setAttribute('stroke-dasharray', '10,14');
+    readout.textContent = 'Broken line: Dhāraṇā — attention repeatedly interrupted and returned to the point.';
+  });
+  document.getElementById('dhyanaModeBtn').addEventListener('click', ()=>{
+    line.setAttribute('stroke-dasharray', '0,0');
+    readout.textContent = 'Unbroken line: Dhyāna — the same point, now held without interruption or need for return.';
+  });
+})();
+
+(function(){
+  const buttons = document.querySelectorAll('#satyaButtons .word-btn');
+  const box = document.getElementById('satyaBox');
+  const info = {
+    true: 'A plain truth may sting on delivery, but it gives the listener something stable to act on — the "forest" it grows tends toward resolution.',
+    false: 'A shaded truth avoids immediate discomfort, but it plants a discrepancy the speaker must now track and maintain — the "forest" it grows tends toward further management.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      box.textContent = info[b.dataset.key];
+    });
+  });
+})();
+
+(function(){
+  const container = document.getElementById('samyamaSteps');
+  const steps = [
+    ['1. Dhāraṇā — Bound', 'Attention is fixed to a single point, but still drifts and must be repeatedly, gently returned.'],
+    ['2. Dhyāna — Unbroken', 'The same point, now sustained without interruption — an unbroken flow of one cognition.'],
+    ['3. Samādhi — Absorbed', 'The object alone remains; the sense of a separate self attending to it is, for the duration, unfelt.']
+  ];
+  steps.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+</script>
 
 </body>
 </html>
 
-</body>
-</html>
 
-</body>
-</html>
+
