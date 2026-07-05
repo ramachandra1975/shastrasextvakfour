@@ -3303,6 +3303,511 @@
   drawWave(0.045, 'Ordinary rhythm shown by default — click either button to compare.');
 })();
 </script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Six: Yogic Technology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
 
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  .layer-row{border:1px solid var(--rule); background:var(--panel); padding:14px 18px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;}
+  .layer-row:hover{border-color:var(--gold);}
+  .layer-row .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+  .layer-detail{margin-top:8px; font-size:14px; color:var(--parchment-dim); display:none;}
+  .layer-row.open .layer-detail{display:block;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .word-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+  .check-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:14.5px; color:var(--parchment-dim); cursor:pointer;}
+  .check-row .box{width:16px; height:16px; border:1px solid var(--rule); flex-shrink:0;}
+  .check-row.checked .box{background:var(--gold); border-color:var(--gold);}
+  .check-row.checked{color:var(--parchment);}
+  .framework-step{display:flex; gap:16px; padding:16px 0; border-bottom:1px solid var(--rule); align-items:flex-start;}
+  .framework-step:last-child{border-bottom:none;}
+  .framework-num{font-family:'JetBrains Mono', monospace; color:var(--gold); font-size:20px; width:32px; flex-shrink:0;}
+  .framework-body .flbl{font-family:'Spectral', serif; font-size:16px; color:var(--parchment); display:block; margin-bottom:4px;}
+  .framework-body .fdetail{font-size:14px; color:var(--parchment-dim);}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Six of the Series</div>
+    <h1 class="title">Yogic <em>Technology</em></h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section VI of the white paper — the eight-limbed discipline of Sections III–IV, redirected specifically at speech: meditation as a technology for refining Vāk itself, and a closing framework for applying the entire white paper to how a person actually communicates, including in the conditions of the digital age.</p>
+    <div class="epigraph">Dhāraṇā, Dhyāna, and Samādhi were first named as a general discipline. Aimed deliberately at the four levels of speech, they become something more specific: a technology for closing the gap between what is meant and what is said.</div>
+    <nav class="toc">
+      <a href="#t28">28 · Meditation as Speech Refinement</a>
+      <a href="#t29">29 · Dhāraṇā Applied to Speech</a>
+      <a href="#t30">30 · Dhyāna Applied to Speech</a>
+      <a href="#t31">31 · Samādhi Applied to Speech</a>
+      <a href="#t32">32 · The Digital Age and Yogic Speech</a>
+      <a href="#t33">33 · The Conscious Communication Framework</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 28 -->
+  <section class="topic" id="t28">
+    <div class="topic-number">TOPIC 28</div>
+    <h2 class="topic-title">Meditation as Speech Refinement</h2>
+    <div class="sanskrit-head mono">भावना — cultivation, aimed at the word</div>
+
+    <p class="lede">Sections III and IV treated Dhāraṇā, Dhyāna, and Samādhi as a general discipline, culminating in absorption for its own sake. This section takes the same three inward limbs and asks a narrower, practical question: what happens when they are aimed, not at an arbitrary point of focus, but specifically at the four levels of speech named in Topic 17?</p>
+
+    <h3 class="sub">Why Speech Is an Unusually Good Object</h3>
+    <p>Most objects of meditation are chosen for their neutrality — a candle flame, a repeated syllable, the breath. Speech is different: it is an object a person produces continuously, under real stakes, dozens of times a day, which makes it an unusually rich and unusually testable field for exactly the kind of practice-based verification Topic 5 asked this white paper to be judged by.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">वाग्योगाच्च कारणम्</div>
+      <div class="shloka-translit">vāg-yogāc ca kāraṇam</div>
+      <p class="shloka-trans">"And through the discipline (yoga) of speech, [it becomes] a cause [of clarity]."</p>
+      <div class="shloka-source">Formulation drawn from grammarian-Tantric synthesis on Vāk-sādhana</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>वाक्साधना</td><td>Vāk-sādhana</td><td>disciplined practice directed specifically at speech</td></tr>
+      <tr><td>भावना</td><td>Bhāvanā</td><td>cultivation — the deliberate strengthening of a chosen quality through repetition</td></tr>
+    </table>
+
+    <p>The claim this topic sets up, and the next three develop in turn, is straightforward: the same three-part deepening that Topics 16, 18, and 20 described in general — bound attention, unbroken attention, absorbed attention — can be walked through again with one specific object: the gap between Paśyantī (what is meant) and Vaikharī (what is said).</p>
+
+    <div class="widget" id="w28">
+      <div class="widget-label">Interactive · The Gap This Section Targets</div>
+      <svg width="100%" height="140" viewBox="0 0 600 140" id="gapSvg">
+        <text x="120" y="30" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="11">PAŚYANTĪ (meant)</text>
+        <circle cx="120" cy="80" r="26" fill="rgba(82,92,140,0.15)" stroke="#525C8C" stroke-width="1.5"/>
+        <text x="480" y="30" text-anchor="middle" fill="#9C5A34" font-family="JetBrains Mono" font-size="11">VAIKHARĪ (said)</text>
+        <circle cx="480" cy="80" r="26" fill="rgba(156,90,52,0.15)" stroke="#9C5A34" stroke-width="1.5"/>
+        <line id="gapLine" x1="150" y1="80" x2="450" y2="80" stroke="#B9922A" stroke-width="2" stroke-dasharray="6,8"/>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="wideGapBtn">Untrained: Wide Gap</button>
+        <button class="pill" id="narrowGapBtn">Trained: Narrow Gap</button>
+      </div>
+      <div class="readout" id="gapReadout">Toggle to see what Topics 29–31 aim to narrow.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a sentence that came out saying something close to, but not quite, what you meant. Where in the gap shown above did the drift most likely occur?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Meditation, aimed specifically at speech, becomes a technology for narrowing the gap between what is meant at the Paśyantī level and what is actually said at the Vaikharī level — the project the next three topics carry out limb by limb.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before your next few sentences, silently ask: "is this what I meant, or close to it?" Simply asking, without yet trying to fix anything, is this topic's practice.</div>
+    <div class="crosslinks">See also: <span>Topic 5 — Yogic Discipline as Technology</span> · <span>Topic 17 — The Four Levels of Speech</span></div>
+  </section>
+
+  <!-- TOPIC 29 -->
+  <section class="topic" id="t29">
+    <div class="topic-number">TOPIC 29</div>
+    <h2 class="topic-title">Dhāraṇā Applied to Speech</h2>
+    <div class="sanskrit-head mono">वाक्धारणा — binding attention to the pre-verbal impulse</div>
+
+    <p class="lede">Topic 16 defined Dhāraṇā as binding Citta to a single place. Applied to speech, that single place becomes the pre-verbal impulse itself — the felt sense, prior to any words, that Topic 17 located at Paśyantī — rather than a breath, sound, or external image.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">देशबन्धश्चित्तस्य धारणा</div>
+      <div class="shloka-translit">deśa-bandhaḥ cittasya dhāraṇā</div>
+      <p class="shloka-trans">"Dhāraṇā is the binding of Citta to a single place." (as in Topic 16, here applied to a specific place: the pre-verbal impulse)</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.1</div>
+    </div>
+
+    <h3 class="sub">What This Looks Like in Practice</h3>
+    <p>Ordinarily, the movement from Paśyantī to Vaikharī happens too quickly to observe — a felt sense becomes a sentence before attention can register the transition at all. Dhāraṇā applied here means deliberately pausing at that pre-verbal moment, holding attention there rather than letting it rush straight to word-formation, and only then permitting Madhyamā to assemble the sentence.</p>
+
+    <table class="term-table">
+      <tr><td>प्रतिभा</td><td>Pratibhā</td><td>the flash of pre-verbal insight Dhāraṇā here holds attention on</td></tr>
+      <tr><td>विलम्ब</td><td>Vilamba</td><td>the deliberate pause introduced between impulse and word</td></tr>
+    </table>
+
+    <div class="widget" id="w29">
+      <div class="widget-label">Interactive · Hold the Pre-Verbal Moment</div>
+      <div id="dharanaSpeechSteps"></div>
+      <div class="readout">Click through the sequence to see where Dhāraṇā inserts its pause.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>In your last disagreement, was there any pause at all between impulse and word — or did Vaikharī arrive before Paśyantī was even fully registered?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Dhāraṇā applied to speech is the deliberate binding of attention to the pre-verbal impulse itself, inserting a pause before Madhyamā assembles a sentence — the first concrete step in narrowing Topic 28's gap.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>In your next conversation, practice one deliberate half-second pause at the felt sense of "something wants to be said," before any words form, at least three times.</div>
+    <div class="crosslinks">See also: <span>Topic 16 — Dhāraṇā</span> · <span>Topic 17 — The Four Levels of Speech</span> · <span>Topic 28 — Meditation as Speech Refinement</span></div>
+  </section>
+
+  <!-- TOPIC 30 -->
+  <section class="topic" id="t30">
+    <div class="topic-number">TOPIC 30</div>
+    <h2 class="topic-title">Dhyāna Applied to Speech</h2>
+    <div class="sanskrit-head mono">वाग्ध्यान — an unbroken flow from meaning to word</div>
+
+    <p class="lede">Topic 18 distinguished Dhyāna from Dhāraṇā by continuity: the same point, no longer requiring repeated return. Applied to speech, this is the stage at which the pause introduced in Topic 29 is no longer needed as a deliberate interruption, because attention now tracks the entire movement from Paśyantī through Madhyamā to Vaikharī as one unbroken flow.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तत्र प्रत्ययैकतानता ध्यानम्</div>
+      <div class="shloka-translit">tatra pratyaya-ikatānatā dhyānam</div>
+      <p class="shloka-trans">"There, an unbroken flow of a single cognition is Dhyāna." (as in Topic 18, here the single cognition spans meaning-to-word)</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.2</div>
+    </div>
+
+    <h3 class="sub">From Interrupting the Rush to Following It Clearly</h3>
+    <p>Where Topic 29's Dhāraṇā works by deliberately slowing the process down, this stage of Dhyāna works by attention becoming clear enough to follow the full speed of ordinary speech without losing track of its origin. The speaker is not slower; the awareness accompanying the speech is more continuous, so that Madhyamā's construction and Vaikharī's utterance are both felt as extensions of the same originating impulse rather than a separate, disconnected act.</p>
+
+    <table class="term-table">
+      <tr><td>अविच्छिन्न</td><td>Avicchinna</td><td>uninterrupted — the quality of attention Dhyāna brings to the whole speech-sequence</td></tr>
+      <tr><td>अनुसन्धान</td><td>Anusandhāna</td><td>continuous tracking — following the thread from meaning to word without losing it</td></tr>
+    </table>
+
+    <div class="widget" id="w30">
+      <div class="widget-label">Interactive · Interrupted vs. Continuous Tracking</div>
+      <svg width="100%" height="140" viewBox="0 0 600 140" id="trackSvg">
+        <line id="trackLine" x1="40" y1="70" x2="560" y2="70" stroke="#3A3B44" stroke-width="4" stroke-dasharray="10,14"/>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="interruptedBtn">Show Interrupted (Dhāraṇā stage)</button>
+        <button class="pill" id="continuousBtn">Show Continuous (Dhyāna stage)</button>
+      </div>
+      <div class="readout" id="trackReadout">Toggle between the two stages of tracking meaning into word.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a conversation where your words felt fully "yours" the entire time you were speaking, without any sense of drift. What made that continuity possible?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Dhyāna applied to speech is the point at which the movement from meaning to word is tracked continuously rather than deliberately paused — the same speed as ordinary speech, but with unbroken awareness of its origin throughout.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>In one full conversation, try to maintain a background awareness of "where this sentence came from" without slowing your speech down at all.</div>
+    <div class="crosslinks">See also: <span>Topic 18 — Dhyāna</span> · <span>Topic 29 — Dhāraṇā Applied to Speech</span></div>
+  </section>
+
+  <!-- TOPIC 31 -->
+  <section class="topic" id="t31">
+    <div class="topic-number">TOPIC 31</div>
+    <h2 class="topic-title">Samādhi Applied to Speech</h2>
+    <div class="sanskrit-head mono">वाक्समाधि — no gap left to close</div>
+
+    <p class="lede">Topic 20 described Samādhi as the point at which the observer is no longer felt as separate from the object observed. Applied to speech, this is the state Topic 28 was ultimately aimed at from the start: the gap between what is meant and what is said narrows to the point where there is, in the moment of speaking, nothing left over to notice as a discrepancy.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तदेवार्थमात्रनिर्भासं स्वरूपशून्यमिव समाधिः</div>
+      <div class="shloka-translit">tad eva artha-mātra-nirbhāsaṃ svarūpa-śūnyam iva samādhiḥ</div>
+      <p class="shloka-trans">"That same [Dhyāna], shining forth as the object alone, as if empty of its own form, is Samādhi." (as in Topic 20, here the object is the spoken meaning itself)</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 3.3</div>
+    </div>
+
+    <h3 class="sub">Speech Without a Felt Gap</h3>
+    <p>This is not a claim that every word becomes perfectly chosen — it is a narrower and more testable claim about the felt experience of speaking: at this depth, the speaker does not experience themselves as translating an inner meaning into outer words at all, because the two are no longer felt as separate stages. What Topic 28 identified as a gap requiring narrowing is, at this stage, not present to be narrowed.</p>
+
+    <table class="term-table">
+      <tr><td>अभेद</td><td>Abheda</td><td>non-difference — the felt absence of separation between meaning and word</td></tr>
+      <tr><td>स्वाभाविक</td><td>Svābhāvika</td><td>natural, spontaneous — speech arising without the sense of an intervening act of construction</td></tr>
+    </table>
+
+    <p>Read against Topic 22's theory of Sphoṭa, this state can be described from the listener's side and the speaker's side at once: for the listener, meaning bursts forth whole from the sequence of sounds; at this depth, for the speaker, the word is felt to burst forth just as directly from the meaning, with no intervening translation felt at all.</p>
+
+    <div class="widget" id="w31">
+      <div class="widget-label">Interactive · Three Stages, One Gap Closing</div>
+      <div id="samadhiSpeechSteps"></div>
+      <div class="readout">Click each stage to see the gap from Topic 28 narrow across all three limbs.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Has there been a moment of speaking — in a difficult conversation, in teaching, in prayer or chant — where no gap between meaning and word was felt at all? What was different about that moment?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Samādhi applied to speech is the state in which meaning and word are no longer felt as separate stages — the completion of the project Topic 28 opened, closing the gap Dhāraṇā first paused at and Dhyāna learned to track continuously.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Do not practice for this state directly — the texts are consistent that reaching for Samādhi delays it. Continue Topic 30's practice and let this topic's description simply inform what you notice, without forcing it.</div>
+    <div class="crosslinks">See also: <span>Topic 20 — Samādhi</span> · <span>Topic 22 — Sphoṭa</span> · <span>Topic 30 — Dhyāna Applied to Speech</span></div>
+  </section>
+
+  <!-- TOPIC 32 -->
+  <section class="topic" id="t32">
+    <div class="topic-number">TOPIC 32</div>
+    <h2 class="topic-title">The Digital Age and Yogic Speech</h2>
+    <div class="sanskrit-head mono">आधुनिक वाक्संकट — an old discipline, a new medium</div>
+
+    <p class="lede">Every limb and level named so far assumes a speaker with a body, a breath, and a listener in shared time. Text-based digital communication changes several of those assumptions at once, and this topic asks, directly, what happens to Vāk's architecture when Vaikharī is typed rather than spoken.</p>
+
+    <h3 class="sub">Three Structural Changes Worth Naming Plainly</h3>
+    <p>First, Udāna's role (Topic 7) — the current that drives sound up through the throat — has no equivalent friction in typing; a sentence can be produced by the hands alone, bypassing the breath-gated pacing that spoken Vaikharī imposes. Second, Pratyāhāra (Topic 15) is under continuous pressure from notifications engineered specifically to pull the senses back toward their objects, the opposite of what that limb asks for. Third, the pause Dhāraṇā introduces at the pre-verbal moment (Topic 29) is easy to skip entirely in text, where a reply can be sent the instant it is typed, with none of spoken conversation's natural micro-delays.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">यत्नेन रक्षेद्वाग्घि क्षणिकं मनः</div>
+      <div class="shloka-translit">yatnena rakṣed vāg hi kṣaṇikaṃ manaḥ</div>
+      <p class="shloka-trans">"Speech should be guarded with effort, for the mind is momentary."</p>
+      <div class="shloka-source">Traditional formulation on the vigilance speech requires, echoed across dharmaśāstra literature</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>क्षणिक मनस्</td><td>Kṣaṇika manas</td><td>the momentary, easily-triggered mind text-based reactivity exploits</td></tr>
+      <tr><td>विलम्बहीन वाक्</td><td>Vilamba-hīna vāk</td><td>speech without pause — text sent faster than Dhāraṇā's gap can act</td></tr>
+    </table>
+
+    <h3 class="sub">Not a Condemnation, but a Recalibration</h3>
+    <p>Consistent with Topic 5's framing, this is not offered as a case against digital communication itself, but as an argument that its structural features — friction removed, attention contested, pause optional — make the disciplines of Topics 29–31 more necessary, not less relevant, precisely where they are hardest to apply.</p>
+
+    <div class="widget" id="w32">
+      <div class="widget-label">Interactive · Where the Old Friction Is Missing</div>
+      <div class="grid3">
+        <div class="mini-card"><span class="lbl">Spoken Speech</span>Breath (Udāna) paces each sentence; a listener's presence naturally invites a pause before replying.</div>
+        <div class="mini-card"><span class="lbl">Typed Speech</span>No breath gate; a reply can be sent the instant it is composed, often faster than Dhāraṇā's pause can act.</div>
+        <div class="mini-card"><span class="lbl">The Recalibration</span>The pause once supplied by breath must now be supplied deliberately — the practical subject of Topic 33.</div>
+      </div>
+      <div class="readout">This comparison sets up the framework in the next topic.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall the last message you sent in irritation. If you had needed to speak it aloud, with a full breath first, would it have been the same message?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Digital text removes several structural supports — breath's pacing, natural pauses, contested attention — that spoken Vāk relied on without needing to think about it, making Topics 29–31's disciplines more necessary precisely where the medium makes them harder to apply.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before sending your next message written in any strong emotion, take one full physical breath — Topic 4's original claim, reapplied deliberately to a medium that no longer supplies it automatically.</div>
+    <div class="crosslinks">See also: <span>Topic 4 — Breath Before Thought</span> · <span>Topic 15 — Pratyāhāra</span> · <span>Topic 29 — Dhāraṇā Applied to Speech</span></div>
+  </section>
+
+  <!-- TOPIC 33 -->
+  <section class="topic" id="t33">
+    <div class="topic-number">TOPIC 33</div>
+    <h2 class="topic-title">The Conscious Communication Framework</h2>
+    <div class="sanskrit-head mono">सम्यग्वाक् प्रक्रिया — one method, drawn from the whole white paper</div>
+
+    <p class="lede">This closing topic does not introduce new doctrine. It draws together Yama's restraint, Satya's truthfulness, Pratyāhāra's withdrawal, Dhāraṇā's pause, Dhyāna's tracking, and Topic 32's digital recalibration into a single ordered method — a practical sequence a reader can actually run, in real time, before and during a consequential act of speech.</p>
+
+    <h3 class="sub">The Framework, in Five Steps</h3>
+    <div class="widget" id="w33">
+      <div class="widget-label">The Conscious Communication Framework</div>
+      <div id="frameworkSteps"></div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>1. संयम</td><td>Saṃyama-check</td><td>drawn from Yama/Niyama (Topics 12–13) — is this restrained and honest before it is anything else?</td></tr>
+      <tr><td>2. प्रत्याहार</td><td>Pratyāhāra-pause</td><td>drawn from Topic 15/32 — one breath, deliberately supplied, especially in text</td></tr>
+      <tr><td>3. धारणा</td><td>Dhāraṇā-locate</td><td>drawn from Topic 29 — locate the pre-verbal impulse before letting Madhyamā assemble it</td></tr>
+      <tr><td>4. सत्य</td><td>Satya-verify</td><td>drawn from Topic 19 — confirm the sentence about to be spoken is accurate</td></tr>
+      <tr><td>5. ध्यान</td><td>Dhyāna-release</td><td>drawn from Topic 30 — speak or send with continuous, unbroken attention, then let it go</td></tr>
+    </table>
+
+    <h3 class="sub">A Method, Not a Ritual</h3>
+    <p>Consistent with Topic 5's closing distinction, this sequence is offered as a repeatable technology, not a ceremony requiring exact performance. In practice it compresses to well under a second once familiar — the five steps named here for teaching purposes are, at fluency, closer to a single integrated check than five separate acts.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">यत्किञ्चिद्वदेत्तत्सत्यं धृतं संयतमेव च</div>
+      <div class="shloka-translit">yat kiñcid vadet tat satyaṃ dhṛtaṃ saṃyatam eva ca</div>
+      <p class="shloka-trans">"Whatever one speaks, let it be true, held steady, and restrained."</p>
+      <div class="shloka-source">Formulation consistent with dharmaśāstra teaching on speech-conduct</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Which single step of the five, if you only added one to your current habits, would change the most about how your speech lands?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>The Conscious Communication Framework compresses this white paper's full architecture — restraint, pause, location of intent, verification of truth, and unbroken release — into a five-step method usable in real time, in speech or in text alike.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Run all five steps deliberately, slowly, on a single message or sentence today. Do not aim for speed yet — fluency, per this topic, comes only after the sequence has been run consciously many times.</div>
+    <div class="crosslinks">See also: <span>Topic 12 — Yama</span> · <span>Topic 19 — Truth (Satya)</span> · <span>Topic 32 — The Digital Age and Yogic Speech</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>The Discipline, Made Usable</h2>
+    <p>Section VI has taken the general discipline of Sections III–IV and aimed it, limb by limb, at the single act of speaking: Dhāraṇā pausing at the pre-verbal impulse, Dhyāna tracking meaning into word without losing the thread, and Samādhi closing the gap between the two entirely. Applied to the specific pressures of digital communication, where breath's natural pacing and pause are structurally absent, the same three limbs became more necessary rather than less relevant — and were finally compressed into a five-step framework usable in real time, in any medium.</p>
+    <p>Twenty-three topics of architecture and eight limbs of general discipline have now been carried all the way to a single practical method. Later sections of this white paper return to daily practice, sustaining this framework as habit rather than effort.</p>
+    <div class="next">NEXT IN THE SERIES → Part Seven (Topics 34 onward): Daily Sādhana and the Long Arc of Practice.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function(){
+  const line = document.getElementById('gapLine');
+  const readout = document.getElementById('gapReadout');
+  document.getElementById('wideGapBtn').addEventListener('click', ()=>{
+    line.setAttribute('x1', 150); line.setAttribute('x2', 450);
+    line.setAttribute('stroke-dasharray', '6,10');
+    readout.textContent = 'Untrained: a wide, loosely-tracked gap — Vaikharī often drifts from Paśyantī unnoticed.';
+  });
+  document.getElementById('narrowGapBtn').addEventListener('click', ()=>{
+    line.setAttribute('x1', 260); line.setAttribute('x2', 340);
+    line.setAttribute('stroke-dasharray', '0,0');
+    readout.textContent = 'Trained: a narrow, closely-tracked gap — this is what Topics 29–31 aim to produce.';
+  });
+})();
+
+(function(){
+  const container = document.getElementById('dharanaSpeechSteps');
+  const steps = [
+    ['1. Impulse arises', 'A pre-verbal sense that "something wants to be said" surfaces at Paśyantī — ordinarily unnoticed.'],
+    ['2. Dhāraṇā holds', 'Attention is deliberately bound to this impulse for a beat, rather than rushing straight to word-formation.'],
+    ['3. Madhyamā assembles', 'Only after the pause does the internal sentence take grammatical shape.'],
+    ['4. Vaikharī speaks', 'The sentence is spoken, now more closely tracking the impulse that first held attention.']
+  ];
+  steps.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+(function(){
+  const line = document.getElementById('trackLine');
+  const readout = document.getElementById('trackReadout');
+  document.getElementById('interruptedBtn').addEventListener('click', ()=>{
+    line.setAttribute('stroke-dasharray', '10,14');
+    readout.textContent = 'Interrupted (Dhāraṇā stage): a deliberate pause is required to keep meaning and word aligned.';
+  });
+  document.getElementById('continuousBtn').addEventListener('click', ()=>{
+    line.setAttribute('stroke-dasharray', '0,0');
+    readout.textContent = 'Continuous (Dhyāna stage): the same alignment is now tracked without needing a deliberate pause.';
+  });
+})();
+
+(function(){
+  const container = document.getElementById('samadhiSpeechSteps');
+  const steps = [
+    ['Dhāraṇā stage', 'The gap is wide and requires a deliberate pause to notice and narrow.'],
+    ['Dhyāna stage', 'The gap is narrow and tracked continuously, without needing a pause.'],
+    ['Samādhi stage', 'The gap is not felt as present at all — meaning and word arise as one act.']
+  ];
+  steps.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+(function(){
+  const container = document.getElementById('frameworkSteps');
+  const steps = [
+    ['Saṃyama-check', 'Before speaking: is this restrained and honest — does it hold to Yama and Niyama?'],
+    ['Pratyāhāra-pause', 'Take one deliberate breath or beat, especially before sending text, where this pause is not supplied automatically.'],
+    ['Dhāraṇā-locate', 'Locate the pre-verbal impulse itself before letting a full sentence assemble around it.'],
+    ['Satya-verify', 'Confirm the statement about to be made is accurate, to the best of what is known.'],
+    ['Dhyāna-release', 'Speak or send with continuous attention, then let the words go without further grasping at the outcome.']
+  ];
+  steps.forEach((s, i)=>{
+    const row = document.createElement('div');
+    row.className = 'framework-step';
+    row.innerHTML = `<div class="framework-num">${i+1}</div><div class="framework-body"><span class="flbl">${s[0]}</span><div class="fdetail">${s[1]}</div></div>`;
+    container.appendChild(row);
+  });
+})();
+</script>
 </body>
 </html>
+
