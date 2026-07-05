@@ -1508,6 +1508,509 @@
   });
 })();
 </script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Two: The Architecture of Consciousness</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  /* topic-specific widget styles */
+  .layer-row{border:1px solid var(--rule); background:var(--panel); padding:14px 18px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;}
+  .layer-row:hover{border-color:var(--gold);}
+  .layer-row .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+  .layer-detail{margin-top:8px; font-size:14px; color:var(--parchment-dim); display:none;}
+  .layer-row.open .layer-detail{display:block;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .word-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Two of the Series</div>
+    <h1 class="title">The Architecture of <em>Consciousness</em></h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section II of the white paper — the body's layered instrument: the five sheaths that clothe awareness, the five currents that move within them, the channels they travel, the centers where they surface as expression, and the five fluctuations of mind first named in Part One.</p>
+    <div class="epigraph">What Part One named as current, field, and word, this section opens like an instrument case — sheath within sheath, current within channel, center within center.</div>
+    <nav class="toc">
+      <a href="#t6">6 · The Five Koshas — Sheaths of Being</a>
+      <a href="#t7">7 · The Five Prāṇas — Currents With Direction</a>
+      <a href="#t8">8 · Nāḍīs — The Channels Beneath the Skin</a>
+      <a href="#t9">9 · Cakras as Centers of Expression</a>
+      <a href="#t10">10 · Citta Vṛttis — The Five Fluctuations</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 6 -->
+  <section class="topic" id="t6">
+    <div class="topic-number">TOPIC 6</div>
+    <h2 class="topic-title">The Five Koshas: Sheaths of Being</h2>
+    <div class="sanskrit-head mono">पञ्च कोश — five sheaths, one lamp</div>
+
+    <p class="lede">Part One left Citta as the field in which thought arises and Vāk as its outermost expression. This topic supplies the missing middle: the tradition does not treat a person as body-plus-mind in only two parts, but as five nested sheaths, each subtler than the one before it, wrapped around a center none of them fully is.</p>
+
+    <h3 class="sub">The Textual Claim</h3>
+    <p>The Brahmānanda Valli of the Taittirīya Upaniṣad works outward to inward through exactly this sequence — food, breath, mind, discernment, and bliss — treating each as a distinct "self" only in the sense that a sheath is distinct from the blade it houses, not in the sense of being separately alive.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">अन्नाद्वै प्रजाः प्रजायन्ते । याः काश्च पृथिवीं श्रिताः</div>
+      <div class="shloka-translit">annād vai prajāḥ prajāyante · yāḥ kāśca pṛthivīṃ śritāḥ</div>
+      <p class="shloka-trans">"From food, indeed, creatures are born — whatsoever creatures dwell upon the earth."</p>
+      <div class="shloka-source">Taittirīya Upaniṣad, Brahmānanda Valli 2.2</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>अन्नमय</td><td>Annamaya</td><td>the sheath made of food — the physical body</td></tr>
+      <tr><td>प्राणमय</td><td>Prāṇamaya</td><td>the sheath of vital current — introduced in Topic 1, given structure in Topic 7</td></tr>
+      <tr><td>मनोमय</td><td>Manomaya</td><td>the sheath of mind — where Citta's fluctuations (Topic 10) are felt as thought</td></tr>
+      <tr><td>विज्ञानमय</td><td>Vijñānamaya</td><td>the sheath of discernment — the faculty that judges and decides</td></tr>
+      <tr><td>आनन्दमय</td><td>Ānandamaya</td><td>the sheath of bliss — the subtlest covering, nearest the center it conceals</td></tr>
+    </table>
+
+    <h3 class="sub">A Sheath Is Not a Self</h3>
+    <p>The Upaniṣad's method is worth noting: it names each layer "self" (ātman) only provisionally, then immediately shows that self to have a further self inside it, until the sequence terminates. The rhetorical effect is cumulative — a reader who identifies fully with the body is shown breath underneath it; a reader who then identifies with breath is shown mind underneath that, and so on. No sheath is the final claim. Each is a covering the text asks the reader to see through, not settle into.</p>
+
+    <div class="widget" id="w6">
+      <div class="widget-label">Interactive · Peel the Sheaths</div>
+      <div id="koshaLayers"></div>
+      <div class="readout">Click each sheath, outermost first, to see what the tradition says lies beneath it.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>When you say "I am tired," which sheath is actually speaking — and is it the same one that says "I am glad"?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>A person is modeled as five nested sheaths, each subtler than the last, none of which is the final self — a structure that gives Topics 7–10 a body-map to attach their finer distinctions to.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Notice one sensation, one breath, one thought, one judgment, and one moment of quiet contentment in a single sitting. Name which sheath each belongs to as it passes.</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 7 — Five Prāṇas</span> · <span>Topic 11 — The Four Parts of the Mind</span></div>
+  </section>
+
+  <!-- TOPIC 7 -->
+  <section class="topic" id="t7">
+    <div class="topic-number">TOPIC 7</div>
+    <h2 class="topic-title">The Five Prāṇas: Currents With Direction</h2>
+    <div class="sanskrit-head mono">पञ्च प्राण — one current, five directions</div>
+
+    <p class="lede">Topic 1 introduced Prāṇa as a single organizing current. Here the tradition subdivides that current by direction and function, the way a single electrical supply is subdivided by circuit — one source, five distinct jobs, distinguishable by where they move rather than by what they are made of.</p>
+
+    <h3 class="sub">The Five Named Currents</h3>
+    <p>Classical yogic physiology assigns each of the five a governing direction and a bodily domain: an upward current governing speech and intake at the head and throat; a downward current governing elimination and release below the navel; a contracting current at the navel governing digestion; a pervading current distributed through the entire body governing circulation; and an outward current, active chiefly at death, governing the departure of the other four.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">प्राणापानौ समानश्च उदानो व्यान एव च । पञ्चैते तत्समाख्याता वर्तमानाः शरीरिणाम्</div>
+      <div class="shloka-translit">prāṇāpānau samānaśca udāno vyāna eva ca · pañcaite tat samākhyātāḥ vartamānāḥ śarīriṇām</div>
+      <p class="shloka-trans">"Prāṇa, Apāna, Samāna, Udāna, and Vyāna — these five are declared to be active within embodied beings."</p>
+      <div class="shloka-source">Traditional yogic physiology, echoed across Haṭha and Upaniṣadic sources</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>प्राण</td><td>Prāṇa (specific)</td><td>upward-moving, governs inhalation, speech, and intake</td></tr>
+      <tr><td>अपान</td><td>Apāna</td><td>downward-moving, governs elimination and release</td></tr>
+      <tr><td>समान</td><td>Samāna</td><td>centering at the navel, governs digestion and assimilation</td></tr>
+      <tr><td>उदान</td><td>Udāna</td><td>upward through the throat, governs speech-production and growth</td></tr>
+      <tr><td>व्यान</td><td>Vyāna</td><td>pervading the whole body, governs circulation and coordination</td></tr>
+    </table>
+
+    <h3 class="sub">Why the Subdivision Matters for Speech</h3>
+    <p>Two of the five bear directly on the architecture of Vāk from Topic 3: Udāna is described as the current that actually drives sound up through the throat into audible speech, while Prāṇa proper governs the intake of breath that speech depends on. A word spoken, on this model, is Udāna's work riding on a current Prāṇa first drew in — the physiological floor beneath the four-level scheme of speech developed further in Topic 17.</p>
+
+    <div class="widget" id="w7">
+      <div class="widget-label">Interactive · Five Currents, Five Directions</div>
+      <div class="btn-row" id="pranaButtons">
+        <button class="word-btn" data-key="prana">Prāṇa ↑</button>
+        <button class="word-btn" data-key="apana">Apāna ↓</button>
+        <button class="word-btn" data-key="samana">Samāna ⊙</button>
+        <button class="word-btn" data-key="udana">Udāna ↗</button>
+        <button class="word-btn" data-key="vyana">Vyāna ⇄</button>
+      </div>
+      <div class="consequence-box" id="pranaBox">Choose a current to see its domain.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Notice, the next time you speak a full sentence, whether you can feel the current move upward before the word forms — Udāna at work, on this model.</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Prāṇa is not undifferentiated; it is organized into five directional currents with distinct bodily jobs, two of which — Prāṇa proper and Udāna — form the physiological basis of speech itself.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before speaking a sentence you care about, notice the inhale (Prāṇa) and the rising sensation in the throat (Udāna) as two separate, sequential events rather than one.</div>
+    <div class="crosslinks">See also: <span>Topic 1 — The Living Current</span> · <span>Topic 8 — Nāḍīs</span> · <span>Topic 26 — Breath Shapes Speech</span></div>
+  </section>
+
+  <!-- TOPIC 8 -->
+  <section class="topic" id="t8">
+    <div class="topic-number">TOPIC 8</div>
+    <h2 class="topic-title">Nāḍīs: The Channels Beneath the Skin</h2>
+    <div class="sanskrit-head mono">नाडी — the rivers that carry the current</div>
+
+    <p class="lede">Topic 7 named five currents; this topic names the channels the tradition claims they travel through. A Nāḍī is not a nerve in the anatomical sense the word is sometimes loosely mapped onto — it is a subtler conduit, proposed as a parallel circulatory system dedicated to Prāṇa rather than blood.</p>
+
+    <h3 class="sub">Three Channels of Primary Interest</h3>
+    <p>Of the many Nāḍīs the tradition catalogues, three receive the most sustained attention: a left channel associated with a cooling, lunar quality; a right channel associated with a heating, solar quality; and a central channel, described as ordinarily dormant, through which the other two are said to move only when deliberately balanced against each other.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">इडा वामे स्थिता भागे पिङ्गला दक्षिणे स्मृता । सुषुम्ना मध्यदेशे तु शून्याकाशप्रकाशिनी</div>
+      <div class="shloka-translit">iḍā vāme sthitā bhāge piṅgalā dakṣiṇe smṛtā · suṣumnā madhyadeśe tu śūnyākāśa-prakāśinī</div>
+      <p class="shloka-trans">"Iḍā is situated on the left side, Piṅgalā is known on the right, and Suṣumnā in the middle, illuminating the void of space."</p>
+      <div class="shloka-source">Haṭhayoga tradition, echoed across Śiva Saṃhitā and related texts</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>इडा</td><td>Iḍā</td><td>left channel, lunar and cooling in quality</td></tr>
+      <tr><td>पिङ्गला</td><td>Piṅgalā</td><td>right channel, solar and heating in quality</td></tr>
+      <tr><td>सुषुम्ना</td><td>Suṣumnā</td><td>central channel, ordinarily dormant, activated by balance of the other two</td></tr>
+    </table>
+
+    <h3 class="sub">Balance, Not Preference</h3>
+    <p>The model does not treat Iḍā or Piṅgalā as preferable to the other — heat and coolness are both partial states. The claim specific to this tradition is that the central channel opens only at the point where the two side channels are equalized, not when either dominates. This reframes "balance" from a vague wellness term into a precise structural condition: a third pathway becomes available only when neither of the first two is winning.</p>
+
+    <div class="widget" id="w8">
+      <div class="widget-label">Interactive · Balance the Two Channels</div>
+      <svg width="100%" height="180" viewBox="0 0 600 180" id="nadiSvg">
+        <line x1="80" y1="20" x2="80" y2="160" stroke="#525C8C" stroke-width="6" stroke-linecap="round"/>
+        <line x1="520" y1="20" x2="520" y2="160" stroke="#9C5A34" stroke-width="6" stroke-linecap="round"/>
+        <line id="sushumna" x1="300" y1="20" x2="300" y2="160" stroke="#B9922A" stroke-width="2" stroke-linecap="round" opacity="0.15"/>
+        <text x="80" y="14" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="11">IḌĀ</text>
+        <text x="520" y="14" text-anchor="middle" fill="#9C5A34" font-family="JetBrains Mono" font-size="11">PIṄGALĀ</text>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="tiltLeft">Tilt Cooling (Iḍā)</button>
+        <button class="pill" id="tiltCenter">Balance</button>
+        <button class="pill" id="tiltRight">Tilt Heating (Piṅgalā)</button>
+      </div>
+      <div class="readout" id="nadiReadout">Balance the two side channels — the central channel brightens only near equilibrium.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Where in your day do you notice yourself running consistently "hot" (Piṅgalā) or "cool" (Iḍā) — and what would balancing, rather than choosing a side, actually look like?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Prāṇa is said to travel through channels, chiefly a cooling left, a heating right, and a dormant center — with the center opening only when the two sides are equalized, not when either prevails.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Try alternate-nostril breathing for one minute, giving equal count to each side, and notice whether a felt sense of centeredness follows the equal count rather than either side alone.</div>
+    <div class="crosslinks">See also: <span>Topic 7 — Five Prāṇas</span> · <span>Topic 9 — Cakras</span> · <span>Topic 23 — Prāṇāyāma</span></div>
+  </section>
+
+  <!-- TOPIC 9 -->
+  <section class="topic" id="t9">
+    <div class="topic-number">TOPIC 9</div>
+    <h2 class="topic-title">Cakras as Centers of Expression</h2>
+    <div class="sanskrit-head mono">चक्र — wheels where current surfaces as function</div>
+
+    <p class="lede">If Nāḍīs are the channels, Cakras are named as the stations along the central channel where the current is said to surface into a specific mode of expression — a wheel not in the sense of a spinning object, but in the sense of a hub where several functions converge.</p>
+
+    <h3 class="sub">A Note on Framing</h3>
+    <p>This white paper treats the Cakra system, per Topic 5's stated method, as a functional map rather than an anatomical claim requiring literal physical location. What matters for this section is narrower and more testable than the full cosmological scheme: several classical sources place the seat of Vāk specifically at the throat center, directly downstream of the Udāna current named in Topic 7.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">विशुद्धौ वाक् प्रतिष्ठिता</div>
+      <div class="shloka-translit">viśuddhau vāk pratiṣṭhitā</div>
+      <p class="shloka-trans">"In Viśuddha [the throat center], speech is established."</p>
+      <div class="shloka-source">Traditional Tantric physiology, echoed across Ṣaṭcakranirūpaṇa-adjacent sources</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>मूलाधार</td><td>Mūlādhāra</td><td>base center — stability, groundedness</td></tr>
+      <tr><td>स्वाधिष्ठान</td><td>Svādhiṣṭhāna</td><td>sacral center — feeling, fluidity</td></tr>
+      <tr><td>मणिपूर</td><td>Maṇipūra</td><td>navel center — will, transformation, aligned with Samāna</td></tr>
+      <tr><td>अनाहत</td><td>Anāhata</td><td>heart center — connection, the "unstruck" sound</td></tr>
+      <tr><td>विशुद्ध</td><td>Viśuddha</td><td>throat center — the seat of Vāk, where Udāna surfaces as speech</td></tr>
+      <tr><td>आज्ञा</td><td>Ājñā</td><td>brow center — discernment, aligned with Vijñānamaya (Topic 6)</td></tr>
+    </table>
+
+    <p>Placed against the sheaths of Topic 6 and the currents of Topic 7, a rough correspondence emerges without requiring exact one-to-one mapping: the throat center is where Vijñānamaya's discernment and Udāna's rising current meet and become the audible word — the precise junction Topic 3 called the "seed."</p>
+
+    <div class="widget" id="w9">
+      <div class="widget-label">Interactive · The Column of Centers</div>
+      <div id="cakraColumn"></div>
+      <div class="readout">Click a center to see the function it is said to govern.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>When your throat tightens before a difficult sentence, is that only muscular tension — or, on this model, a center registering that discernment and current have not yet aligned?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>The Cakra system, read functionally rather than anatomically, places the seat of speech at the throat — the meeting point of discernment from above and current from below, and the direct downstream site of everything Topics 1, 3, and 7 have already established.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before a sentence that matters, place a hand lightly at the throat and notice whether it is tense or open — and whether that tension tracks with how settled the sentence feels once spoken.</div>
+    <div class="crosslinks">See also: <span>Topic 3 — Vāk</span> · <span>Topic 7 — Five Prāṇas</span> · <span>Topic 26 — Breath Shapes Speech</span></div>
+  </section>
+
+  <!-- TOPIC 10 -->
+  <section class="topic" id="t10">
+    <div class="topic-number">TOPIC 10</div>
+    <h2 class="topic-title">Citta Vṛttis: The Five Fluctuations</h2>
+    <div class="sanskrit-head mono">वृत्ति — five weathers in one sky</div>
+
+    <p class="lede">Topic 2 named Citta as a field and Vṛtti as the general term for whatever arises within it. Patañjali does not leave the term general for long: immediately following the sky-and-clouds definition, the Yoga Sūtras name exactly five kinds of fluctuation, closing the account this white paper opened in Section I's second topic.</p>
+
+    <h3 class="sub">The Five Named</h3>
+    <p>The text lists correct knowledge, error, imagination or verbal construction without a real referent, deep sleep, and memory as the complete set — a claim of exhaustiveness worth noting: the sūtras assert that every mental event a person can have belongs to one of these five categories, no matter how varied its content.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">प्रमाणविपर्ययविकल्पनिद्रास्मृतयः</div>
+      <div class="shloka-translit">pramāṇa-viparyaya-vikalpa-nidrā-smṛtayaḥ</div>
+      <p class="shloka-trans">"[The fluctuations are] correct knowledge, error, imagination, sleep, and memory."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 1.6</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>प्रमाण</td><td>Pramāṇa</td><td>correct knowledge, gained through direct perception, inference, or reliable testimony</td></tr>
+      <tr><td>विपर्यय</td><td>Viparyaya</td><td>error — a mistaken cognition later correctable by better evidence</td></tr>
+      <tr><td>विकल्प</td><td>Vikalpa</td><td>a construction built from words alone, with no corresponding object, real or false</td></tr>
+      <tr><td>निद्रा</td><td>Nidrā</td><td>deep, dreamless sleep — counted as a Vṛtti because it is itself a specific mental state, not an absence of one</td></tr>
+      <tr><td>स्मृति</td><td>Smṛti</td><td>memory — the retained impression of a previously experienced object</td></tr>
+    </table>
+
+    <h3 class="sub">Why Even Sleep Counts</h3>
+    <p>The inclusion of Nidrā is the scheme's most counterintuitive move and worth pausing on. Patañjali treats dreamless sleep not as the mind switching off, but as the mind resting in a distinct cognizable state — evidenced, in the text's own reasoning, by the fact that a person wakes able to report "I slept well" or "I slept poorly," a judgment that requires something to have been registered even in sleep's apparent absence of content.</p>
+
+    <div class="widget" id="w10">
+      <div class="widget-label">Interactive · Name the Fluctuation</div>
+      <div class="btn-row" id="vrittiButtons">
+        <button class="word-btn" data-key="pramana">"I see it is raining."</button>
+        <button class="word-btn" data-key="viparyaya">"That rope is a snake."</button>
+        <button class="word-btn" data-key="vikalpa">"A sky-flower."</button>
+        <button class="word-btn" data-key="nidra">Dreamless sleep.</button>
+        <button class="word-btn" data-key="smriti">"I recall yesterday's rain."</button>
+      </div>
+      <div class="consequence-box" id="vrittiBox">Click a mental event to see which of the five it belongs to.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Take the last hour of your own mind and try to sort it into these five bins. Does anything genuinely fail to fit?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Patañjali claims all mental activity, without exception, sorts into five kinds of fluctuation — correct knowledge, error, empty construction, sleep, and memory — completing the account of Citta that Topic 2 opened and setting the terms for the concentration practices of later sections.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>For one day, silently label each strong mental event with one of the five terms as it arises, rather than simply reacting to its content.</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 6 — Five Koshas</span> · <span>Topic 32 — Digital Age and Yogic Speech</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>The Instrument Fully Named</h2>
+    <p>Section II has supplied the body-map that Section I's three architectures required: five nested sheaths housing the person from food to bliss, five directional currents doing distinct work within those sheaths, three principal channels those currents travel, six centers where the currents surface as specific functions — speech chief among them at the throat — and five exhaustive categories into which every fluctuation of Citta can be sorted.</p>
+    <p>Section III turns from architecture to method, opening the discipline proper: the eight limbs of yogic practice, beginning with the ethical restraints and observances that the tradition treats as prerequisite to any of the techniques named so far.</p>
+    <div class="next">NEXT IN THE SERIES → Part Three — The Discipline (Topics 11–15): Yama, Niyama, Āsana, Prāṇāyāma Revisited, and Pratyāhāra.</div>
+  </footer>
+
+</div>
+
+<script>
+// ---------- Breath ribbon (ambient signature) ----------
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ---------- Topic 6: peel the sheaths ----------
+(function(){
+  const container = document.getElementById('koshaLayers');
+  const layers = [
+    ['Annamaya', 'The sheath made of food — the physical body, sustained by what it consumes.'],
+    ['Prāṇamaya', 'The sheath of vital current, detailed fully in Topic 7 — animates but is not identical to the body it moves through.'],
+    ['Manomaya', 'The sheath of mind — where Citta\'s fluctuations (Topic 10) are experienced as ordinary thought.'],
+    ['Vijñānamaya', 'The sheath of discernment — the faculty that judges, decides, and later surfaces at the brow center (Topic 9).'],
+    ['Ānandamaya', 'The subtlest sheath, nearest the center it still conceals — bliss not as an emotion but as a covering of the self.']
+  ];
+  layers.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+// ---------- Topic 7: five currents ----------
+(function(){
+  const buttons = document.querySelectorAll('#pranaButtons .word-btn');
+  const box = document.getElementById('pranaBox');
+  const info = {
+    prana: 'Prāṇa (specific): moves upward through head and chest; governs inhalation and the intake side of speech.',
+    apana: 'Apāna: moves downward below the navel; governs elimination and release.',
+    samana: 'Samāna: centers at the navel; governs digestion and the assimilation of what is taken in.',
+    udana: 'Udāna: moves upward through the throat; drives sound into audible speech and governs growth.',
+    vyana: 'Vyāna: pervades the entire body; governs circulation and coordinates the other four currents.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      box.textContent = info[b.dataset.key];
+    });
+  });
+})();
+
+// ---------- Topic 8: balance the channels ----------
+(function(){
+  const sushumna = document.getElementById('sushumna');
+  const readout = document.getElementById('nadiReadout');
+  let balance = 0; // -1 = full ida, 0 = center, 1 = full pingala
+  function render(){
+    const closeness = 1 - Math.abs(balance);
+    sushumna.setAttribute('opacity', (0.1 + closeness*0.85).toFixed(2));
+    sushumna.setAttribute('stroke-width', (2 + closeness*6).toFixed(1));
+    if(closeness > 0.9){ readout.textContent = 'Balanced — the central channel is fully open.'; }
+    else if(balance < 0){ readout.textContent = 'Leaning cooling (Iḍā) — the center is dim.'; }
+    else if(balance > 0){ readout.textContent = 'Leaning heating (Piṅgalā) — the center is dim.'; }
+    else{ readout.textContent = 'Balance the two side channels — the central channel brightens only near equilibrium.'; }
+  }
+  document.getElementById('tiltLeft').addEventListener('click', ()=>{ balance = -1; render(); });
+  document.getElementById('tiltRight').addEventListener('click', ()=>{ balance = 1; render(); });
+  document.getElementById('tiltCenter').addEventListener('click', ()=>{ balance = 0; render(); });
+  render();
+})();
+
+// ---------- Topic 9: column of centers ----------
+(function(){
+  const container = document.getElementById('cakraColumn');
+  const cakras = [
+    ['Mūlādhāra — Base', 'Stability and groundedness; the foundation the other centers rest on.'],
+    ['Svādhiṣṭhāna — Sacral', 'Feeling and fluidity; the seat of emotional response.'],
+    ['Maṇipūra — Navel', 'Will and transformation; aligned with the Samāna current of Topic 7.'],
+    ['Anāhata — Heart', 'Connection; named for the "unstruck" sound said to arise without contact.'],
+    ['Viśuddha — Throat', 'The seat of Vāk itself — where Udāna\'s current becomes the audible word.'],
+    ['Ājñā — Brow', 'Discernment; aligned with Vijñānamaya, the fourth sheath of Topic 6.']
+  ];
+  cakras.forEach(([name, detail])=>{
+    const row = document.createElement('div');
+    row.className = 'layer-row';
+    row.innerHTML = `<span class="lbl">${name}</span><div class="layer-detail">${detail}</div>`;
+    row.addEventListener('click', ()=> row.classList.toggle('open'));
+    container.appendChild(row);
+  });
+})();
+
+// ---------- Topic 10: name the fluctuation ----------
+(function(){
+  const buttons = document.querySelectorAll('#vrittiButtons .word-btn');
+  const box = document.getElementById('vrittiBox');
+  const info = {
+    pramana: 'Pramāṇa — correct knowledge, here gained through direct perception.',
+    viparyaya: 'Viparyaya — error; a mistaken cognition, correctable once the rope is seen clearly.',
+    vikalpa: 'Vikalpa — a construction from words alone; a "sky-flower" names something that does not and cannot exist.',
+    nidra: 'Nidrā — deep sleep, counted as its own distinct mental state rather than the absence of one.',
+    smriti: 'Smṛti — memory; the retained impression of something previously experienced.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      box.textContent = info[b.dataset.key];
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
