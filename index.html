@@ -241,6 +241,98 @@
     border-top:1px solid var(--rule);
     padding-top:22px;
   }
+
+  /* Matrika deep-dive tabs */
+  section.deepdive{
+    padding-top:70px;
+    margin-top:10px;
+    border-top:1px solid var(--rule);
+  }
+  .tabnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:28px 0 0 0;
+    border-bottom:1px solid var(--rule);
+    padding-bottom:0;
+  }
+  .tabnav button{
+    background:transparent;
+    border:1px solid var(--rule);
+    border-bottom:none;
+    color:var(--parchment-dim);
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    padding:9px 12px;
+    cursor:pointer;
+    border-radius:2px 2px 0 0;
+    text-align:left;
+    max-width:150px;
+  }
+  .tabnav button:hover{color:var(--gold);}
+  .tabnav button.active{
+    color:var(--ink);
+    background:var(--gold);
+    border-color:var(--gold);
+  }
+  .tabpanels{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-top:none;
+    padding:32px 34px;
+  }
+  .tabpanel{display:none;}
+  .tabpanel.active{display:block;}
+  .tabpanel h4{
+    font-family:'Spectral', serif;
+    font-size:22px;
+    color:var(--parchment);
+    margin:0 0 6px 0;
+  }
+  .tabpanel .tab-sa{color:var(--indigo); font-size:14px; margin-bottom:20px;}
+  .tabpanel p{color:var(--parchment); font-size:16px;}
+
+  .varna-grid{
+    display:grid;
+    grid-template-columns:repeat(8, 1fr);
+    gap:6px;
+    margin:16px 0 22px 0;
+  }
+  @media(max-width:640px){.varna-grid{grid-template-columns:repeat(4,1fr);}}
+  .varna-cell{
+    background:var(--panel-2);
+    border:1px solid var(--rule);
+    text-align:center;
+    padding:8px 4px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .varna-cell .sa{font-size:16px; color:var(--gold); display:block;}
+  .varna-cell .tr{font-size:10.5px; color:var(--parchment-dim); font-style:italic;}
+
+  .cakra-table{width:100%; border-collapse:collapse; font-size:14.5px; margin:16px 0 24px 0;}
+  .cakra-table th{
+    text-align:left; font-family:'JetBrains Mono', monospace; font-size:11px;
+    text-transform:uppercase; letter-spacing:0.06em; color:var(--copper);
+    border-bottom:1px solid var(--rule); padding:8px 10px;
+  }
+  .cakra-table td{padding:9px 10px; border-bottom:1px solid var(--rule); color:var(--parchment-dim); vertical-align:top;}
+  .cakra-table td:first-child{color:var(--parchment); font-weight:600;}
+  .cakra-table td.letters{font-family:'JetBrains Mono', monospace; color:var(--gold); font-size:13.5px;}
+
+  .evidence-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin:16px 0;
+  }
+  @media(max-width:640px){.evidence-row{grid-template-columns:1fr;}}
+  .ev-card{padding:16px 18px; border:1px solid var(--rule); font-size:14.5px;}
+  .ev-card.empirical{border-left:2px solid var(--gold);}
+  .ev-card.doctrinal{border-left:2px solid var(--indigo);}
+  .ev-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+  .ev-card.empirical .lbl{color:var(--gold);}
+  .ev-card.doctrinal .lbl{color:var(--indigo);}
 </style>
 </head>
 <body>
@@ -262,6 +354,7 @@
       <a href="#t25">25 · Breath Shapes Emotion</a>
       <a href="#t26">26 · Breath Shapes Speech</a>
       <a href="#t27">27 · Udāna Vāyu</a>
+      <a href="#matrika">Deep Dive · Mātṛkā Nyāsa</a>
     </nav>
   </header>
 
@@ -520,6 +613,172 @@
     <div class="crosslinks">See also: <span>Topic 7 — Five Prāṇas</span> · <span>Topic 9 — Chakras as Centers of Expression</span> · <span>Topic 26</span></div>
   </section>
 
+  <!-- DEEP DIVE: MATRIKA NYASA -->
+  <section class="deepdive" id="matrika">
+    <div class="topic-number">DEEP DIVE · SUPPLEMENT TO SECTION V</div>
+    <h2 class="topic-title">Mātṛkā Nyāsa and the Fifty-One Mātṛkās</h2>
+    <div class="sanskrit-head mono">मातृका न्यास — the science of sound placed upon the body</div>
+    <p class="lede">Topics 23–27 established that breath organizes thought, emotion, and speech as a single physiological substrate. This deep dive goes one level further, to the smallest unit of that substrate: the individual phoneme. Mātṛkā Nyāsa is the traditional methodology by which each of the fifty-one root sounds of Sanskrit is deliberately placed — through touch, breath, and visualization — onto specific points of the body. It is presented here as the granular technology that operationalizes everything built so far, with the empirical and the doctrinal kept carefully distinct throughout.</p>
+
+    <div class="tabnav" id="tabnav">
+      <button class="active" data-tab="tab1">1 · Śabda Brahman</button>
+      <button data-tab="tab2">2 · The 51 Mātṛkās</button>
+      <button data-tab="tab3">3 · The Varṇamālā</button>
+      <button data-tab="tab4">4 · The Fifty Petals</button>
+      <button data-tab="tab5">5 · What Nyāsa Means</button>
+      <button data-tab="tab6">6 · Method & Sequence</button>
+      <button data-tab="tab7">7 · Physiology & Neuroscience</button>
+      <button data-tab="tab8">8 · Closing the Circuit</button>
+    </div>
+
+    <div class="tabpanels">
+
+      <div class="tabpanel active" id="tab1">
+        <h4>Śabda Brahman — Sound as First Cause</h4>
+        <div class="tab-sa mono">शब्दब्रह्म — the doctrine that ultimate reality is vibratory</div>
+        <p>The philosophical ground beneath Mātṛkā Nyāsa is the doctrine of Śabda Brahman: the position, developed at length in the grammarian-philosopher Bhartṛhari's Vākyapadīya, that the absolute itself is of the nature of sound-vibration, and that manifest reality is a graded unfolding of that vibration into increasingly gross form. This is the same descent already mapped in Topic 17's four levels of speech — Para, Paśyantī, Madhyamā, Vaikharī — extended here from the scale of the sentence down to the scale of the single phoneme.</p>
+        <p>Within this doctrine, sound is classified in two registers: Anāhata, the "unstruck" vibration that exists prior to and independent of any physical collision of objects, and Āhata, the "struck" sound produced whenever two things meet — breath against palate, string against wood, voice against air. Mantra and phoneme work are understood as a controlled use of Āhata sound to gain access to, or resonate with, the underlying Anāhata field. This is a metaphysical claim, not an empirical one, and it is stated as such: it is the interpretive frame the tradition itself uses, not a finding to be verified in a laboratory.</p>
+        <p>What can be said with more confidence, and what this deep dive returns to in Tab 7, is that structured, repeated engagement with specific sound-forms does have measurable physiological and attentional effects — which is exactly why a tradition built on this metaphysic would have converged, through long empirical trial, on a disciplined phoneme-by-phoneme practice.</p>
+      </div>
+
+      <div class="tabpanel" id="tab2">
+        <h4>The Fifty-One Mātṛkās — What They Are</h4>
+        <div class="tab-sa mono">मातृका — "little mother," the root sound that generates form</div>
+        <p>Mātṛkā translates literally as "little mother." The term designates each letter of the Sanskrit alphabet not as an arbitrary graphic symbol but as a root sound-seed considered to generate — to "mother" — the forms and thought-patterns associated with it. The counting of these root sounds varies slightly by textual tradition: the alphabet is standardly given as fifty sounds (sixteen vowels and thirty-four consonants), while several Tantric and Śākta sources count fifty-one, most often by treating the compound sound kṣa as a distinct fifty-first mātṛkā.</p>
+        <p>The number fifty-one recurs elsewhere in the same textual universe: it is the number traditionally given for the Śakti Pīṭhas, the sites associated with the body of the goddess Satī, in a symbolic parallel between the dismembered body of the goddess and the "dismembered" — that is, differentiated — body of unified sound into fifty-one distinct utterable parts. Whether this numerical echo is read as coincidence, as intentional textual design, or as doctrinal significance is left to the reader; it is noted here as an documented feature of the tradition rather than asserted as proof of anything beyond itself.</p>
+        <p>Functionally, the mātṛkās are treated as the alphabet of manifestation itself: every word, and therefore every thought capable of being verbalized, is understood as a particular combination of these fifty-one root units. This is the doctrinal foundation for why the tradition considers work at the level of the single phoneme to be foundational, rather than merely preparatory, to work at the level of the word or sentence.</p>
+      </div>
+
+      <div class="tabpanel" id="tab3">
+        <h4>The Varṇamālā — The Chart of Root Sounds</h4>
+        <div class="tab-sa mono">वर्णमाला — "garland of letters"</div>
+        <p>The Sanskrit alphabet is traditionally organized by point and manner of articulation, moving from the back of the throat toward the lips — a sequencing that is itself already a rudimentary map of the vocal tract, centuries before the language of articulatory phonetics existed to describe it that way.</p>
+        <div class="widget-label" style="margin-top:10px;">Sixteen Vowels (Svara)</div>
+        <div class="varna-grid">
+          <div class="varna-cell"><span class="sa">अ</span><span class="tr">a</span></div>
+          <div class="varna-cell"><span class="sa">आ</span><span class="tr">ā</span></div>
+          <div class="varna-cell"><span class="sa">इ</span><span class="tr">i</span></div>
+          <div class="varna-cell"><span class="sa">ई</span><span class="tr">ī</span></div>
+          <div class="varna-cell"><span class="sa">उ</span><span class="tr">u</span></div>
+          <div class="varna-cell"><span class="sa">ऊ</span><span class="tr">ū</span></div>
+          <div class="varna-cell"><span class="sa">ऋ</span><span class="tr">ṛ</span></div>
+          <div class="varna-cell"><span class="sa">ॠ</span><span class="tr">ṝ</span></div>
+          <div class="varna-cell"><span class="sa">ऌ</span><span class="tr">ḷ</span></div>
+          <div class="varna-cell"><span class="sa">ॡ</span><span class="tr">ḹ</span></div>
+          <div class="varna-cell"><span class="sa">ए</span><span class="tr">e</span></div>
+          <div class="varna-cell"><span class="sa">ऐ</span><span class="tr">ai</span></div>
+          <div class="varna-cell"><span class="sa">ओ</span><span class="tr">o</span></div>
+          <div class="varna-cell"><span class="sa">औ</span><span class="tr">au</span></div>
+          <div class="varna-cell"><span class="sa">अं</span><span class="tr">aṃ</span></div>
+          <div class="varna-cell"><span class="sa">अः</span><span class="tr">aḥ</span></div>
+        </div>
+        <div class="widget-label">Thirty-Four (to Thirty-Five) Consonants (Vyañjana)</div>
+        <div class="varna-grid">
+          <div class="varna-cell"><span class="sa">क</span><span class="tr">ka</span></div>
+          <div class="varna-cell"><span class="sa">ख</span><span class="tr">kha</span></div>
+          <div class="varna-cell"><span class="sa">ग</span><span class="tr">ga</span></div>
+          <div class="varna-cell"><span class="sa">घ</span><span class="tr">gha</span></div>
+          <div class="varna-cell"><span class="sa">ङ</span><span class="tr">ṅa</span></div>
+          <div class="varna-cell"><span class="sa">च</span><span class="tr">ca</span></div>
+          <div class="varna-cell"><span class="sa">छ</span><span class="tr">cha</span></div>
+          <div class="varna-cell"><span class="sa">ज</span><span class="tr">ja</span></div>
+          <div class="varna-cell"><span class="sa">झ</span><span class="tr">jha</span></div>
+          <div class="varna-cell"><span class="sa">ञ</span><span class="tr">ña</span></div>
+          <div class="varna-cell"><span class="sa">ट</span><span class="tr">ṭa</span></div>
+          <div class="varna-cell"><span class="sa">ठ</span><span class="tr">ṭha</span></div>
+          <div class="varna-cell"><span class="sa">ड</span><span class="tr">ḍa</span></div>
+          <div class="varna-cell"><span class="sa">ढ</span><span class="tr">ḍha</span></div>
+          <div class="varna-cell"><span class="sa">ण</span><span class="tr">ṇa</span></div>
+          <div class="varna-cell"><span class="sa">त</span><span class="tr">ta</span></div>
+          <div class="varna-cell"><span class="sa">थ</span><span class="tr">tha</span></div>
+          <div class="varna-cell"><span class="sa">द</span><span class="tr">da</span></div>
+          <div class="varna-cell"><span class="sa">ध</span><span class="tr">dha</span></div>
+          <div class="varna-cell"><span class="sa">न</span><span class="tr">na</span></div>
+          <div class="varna-cell"><span class="sa">प</span><span class="tr">pa</span></div>
+          <div class="varna-cell"><span class="sa">फ</span><span class="tr">pha</span></div>
+          <div class="varna-cell"><span class="sa">ब</span><span class="tr">ba</span></div>
+          <div class="varna-cell"><span class="sa">भ</span><span class="tr">bha</span></div>
+          <div class="varna-cell"><span class="sa">म</span><span class="tr">ma</span></div>
+          <div class="varna-cell"><span class="sa">य</span><span class="tr">ya</span></div>
+          <div class="varna-cell"><span class="sa">र</span><span class="tr">ra</span></div>
+          <div class="varna-cell"><span class="sa">ल</span><span class="tr">la</span></div>
+          <div class="varna-cell"><span class="sa">व</span><span class="tr">va</span></div>
+          <div class="varna-cell"><span class="sa">श</span><span class="tr">śa</span></div>
+          <div class="varna-cell"><span class="sa">ष</span><span class="tr">ṣa</span></div>
+          <div class="varna-cell"><span class="sa">स</span><span class="tr">sa</span></div>
+          <div class="varna-cell"><span class="sa">ह</span><span class="tr">ha</span></div>
+          <div class="varna-cell"><span class="sa">क्ष</span><span class="tr">kṣa</span></div>
+        </div>
+        <p>Read across each row, the consonants move through five points of articulation — guttural, palatal, retroflex, dental, labial — each set of five following the same internal pattern (unaspirated, aspirated, voiced, voiced-aspirated, nasal), before the semivowels, sibilants, and the aspirate ha close the sequence, with kṣa treated in several traditions as the closing fifty-first sound.</p>
+      </div>
+
+      <div class="tabpanel" id="tab4">
+        <h4>The Fifty Petals — Mapping Letters to the Cakras</h4>
+        <div class="tab-sa mono">षट्चक्र — the six-cakra scheme of the Tantric body</div>
+        <p>A well-documented Tantric correspondence, described at length in texts such as the Ṣaṭ-Cakra-Nirūpaṇa, assigns each of the fifty root sounds to a "petal" of one of the six lower cakras of the subtle body. The mapping is exhaustive and non-arbitrary in its internal logic — the count of petals at each cakra matches exactly the count of letters assigned to it — though the correspondence itself is a doctrinal, symbolic scheme rather than an anatomically observable structure.</p>
+        <table class="cakra-table">
+          <tr><th>Cakra</th><th>Petals</th><th>Assigned Letters</th></tr>
+          <tr><td>Mūlādhāra</td><td>4</td><td class="letters">va śa ṣa sa</td></tr>
+          <tr><td>Svādhiṣṭhāna</td><td>6</td><td class="letters">ba bha ma ya ra la</td></tr>
+          <tr><td>Maṇipūra</td><td>10</td><td class="letters">ḍa ḍha ṇa ta tha da dha na pa pha</td></tr>
+          <tr><td>Anāhata</td><td>12</td><td class="letters">ka kha ga gha ṅa ca cha ja jha ña ṭa ṭha</td></tr>
+          <tr><td>Viśuddha</td><td>16</td><td class="letters">the sixteen vowels, a through aḥ</td></tr>
+          <tr><td>Ājñā</td><td>2</td><td class="letters">ha kṣa</td></tr>
+        </table>
+        <p>These six totals sum to exactly fifty. The traditional resolution of the fifty-first sound places it not on a petal at all, but at the Bindu above Sahasrāra — the point representing the fifty sounds' return to undifferentiated unity, echoing the Anāhata/Āhata distinction from Tab 1: forty-nine differentiated, struck sounds resolving into one unstruck source. Sahasrāra itself, the "thousand-petaled" cakra, is described as containing all fifty sounds repeated twenty times over, a symbolic statement that the crown center contains the total capacity of speech rather than any single differentiated part of it.</p>
+      </div>
+
+      <div class="tabpanel" id="tab5">
+        <h4>What Nyāsa Means</h4>
+        <div class="tab-sa mono">न्यास — "placing down"; consecration through touch</div>
+        <p>Nyāsa, from the root ni + as ("to place down"), is a broad category of ritual technique in which a mantra, deity, or sound is deliberately placed onto the body through touch, breath, and visualization, transforming the body from an ordinary physical object into a consecrated instrument fit for the practice that follows. It is not unique to sound work — nyāsa is used throughout Tantric ritual to sanctify hands (karanyāsa) and the wider body (aṅganyāsa) before any formal worship or meditation begins.</p>
+        <p>Matrika Nyāsa is the specific application of this technique to the fifty-one root sounds themselves: rather than placing a single deity-mantra at one or two points, the practitioner places the entire alphabet, sound by sound, across the body in a fixed sequence. The stated purpose is threefold, and the tradition is explicit that these are three different kinds of claim: purification (removing the ordinary, habitual quality of the body as a site of scattered, undisciplined speech), sanctification (establishing the body as a fit instrument for Vāk in its refined sense), and protection (a Tantric framing in which the body, once "sealed" with sacred sound at every point, is considered less vulnerable to disturbance from without).</p>
+        <p>Read against the earlier sections of this white paper, nyāsa's underlying logic is continuous with the claim already made in Topic 26 — that the physical body producing speech is never a neutral instrument. Nyāsa simply makes that claim into an explicit, structured practice, rather than leaving it as an implicit background condition of speaking.</p>
+      </div>
+
+      <div class="tabpanel" id="tab6">
+        <h4>Method and Sequence</h4>
+        <div class="tab-sa mono">करन्यास · अङ्गन्यास — hand-placement and body-placement</div>
+        <p>The traditional sequence, as taught in Śrī Vidyā and related Śākta lineages, proceeds in two stages. The first, karanyāsa, places a smaller subset of sounds across the fingers and palms of the hands — a shorter, preparatory sequence. The second, the full aṅganyāsa or Mātṛkā Nyāsa proper, places all fifty-one sounds across the major points of the body, typically moving from the crown of the head downward to the feet, or alternatively organized cakra by cakra from the base upward, depending on the lineage and the ritual context.</p>
+        <p>At each point, three actions are performed together rather than sequentially: the practitioner touches the designated location with the fingertips; softly vocalizes or sub-vocalizes the corresponding sound, usually combined with the bīja syllable oṃ and the appropriate case ending (namaḥ); and holds a brief visualization of that point as illuminated or awakened by the sound. This triple synchronization — touch, sound, image — is the same principle already established in Topic 24's account of breath–thought coupling: multiple channels of attention are deliberately locked together so that each reinforces the other, rather than sound being treated as an isolated auditory event.</p>
+        <p>The breath itself is not incidental to this sequence but structural to it: each phoneme is placed on a single controlled exhalation, so that the entire fifty-one-point sequence is, functionally, an extended and highly subdivided application of the Recaka principle introduced in Topic 23 — one long, deliberate release, broken into fifty-one distinct, located moments rather than a single undifferentiated breath.</p>
+      </div>
+
+      <div class="tabpanel" id="tab7">
+        <h4>Where This Meets Physiology and Neuroscience</h4>
+        <div class="tab-sa mono">an honest accounting of what is established and what is not</div>
+        <p>Consistent with the approach taken throughout this white paper, the empirical and the doctrinal are kept separate here rather than blended into a single undifferentiated claim.</p>
+        <div class="evidence-row">
+          <div class="ev-card empirical">
+            <span class="lbl">Reasonably Well Supported</span>
+            Articulatory phonetics confirms that each Sanskrit phoneme has a distinct, physically locatable point of production in the vocal tract — guttural, palatal, retroflex, dental, labial — meaning the varṇamālā's ordering already tracks a real anatomical gradient, even before any body-wide extension of that mapping.
+          </div>
+          <div class="ev-card empirical">
+            <span class="lbl">Reasonably Well Supported</span>
+            Humming and prolonged vocalization (as in Bhrāmarī prāṇāyāma and sustained chanting) measurably increase nasal nitric oxide release and shift autonomic balance toward parasympathetic dominance, with published studies also reporting increased heart-rate-variability coherence during rhythmic chanting.
+          </div>
+          <div class="ev-card doctrinal">
+            <span class="lbl">Traditional / Not Empirically Testable</span>
+            The claim that a specific consonant vibrates a specific cakra located at a specific point along the spine, in the anatomical sense implied by the petal-mapping in Tab 4, is a symbolic-doctrinal claim. No current instrumentation identifies cakras as physical structures, and this white paper does not represent the mapping as a physiological finding.
+          </div>
+          <div class="ev-card doctrinal">
+            <span class="lbl">Traditional / Not Empirically Testable</span>
+            Claims that sound vibration directly reorganizes tissue or subtle energy at a distant bodily point (as opposed to producing its effects through the vocal tract, hearing, and nervous system) extend beyond what cymatics research — which demonstrates visible patterning in inert media like sand or fluid, not living tissue — actually shows.
+          </div>
+        </div>
+        <p>Where the two registers plausibly meet is in attention and repetition rather than in exotic vibration-at-a-distance. Structured, repetitive, multimodal practice — combining touch, sound, and visualization at each of fifty-one distinct points — is exactly the kind of sustained, effortful attentional task that meditation research associates with reduced mind-wandering and altered default-mode-network activity over a practice session. The likely mechanism, on current evidence, is disciplined attention distributed across a long, structured sequence, rather than any exotic acoustic effect unique to Sanskrit phonemes themselves.</p>
+      </div>
+
+      <div class="tabpanel" id="tab8">
+        <h4>Integration — Closing the Prāṇa–Citta–Vāk Circuit</h4>
+        <div class="tab-sa mono">from breath, to letter, to word, to world</div>
+        <p>Placed against the rest of Section V, Mātṛkā Nyāsa is best understood not as a separate practice but as the point where Topics 23 through 27 converge at their smallest possible unit. Prāṇāyāma (Topic 23) supplies the controlled exhalation on which each sound rides. The breath–thought coupling of Topic 24 explains why fixing attention to a single phoneme at a single point can quiet the wider fluctuation of mind. The breath–emotion coupling of Topic 25 explains why a slow, deliberate, extended-exhale sequence such as this one produces a measurably calming effect distinct from ordinary speech. The breath–speech relationship of Topic 26 explains why the quality of voicing at each point — steady, unhurried, fully supported — matters as much as which sound is spoken. And Udāna Vāyu (Topic 27) supplies the specific upward, expressive current that Mātṛkā Nyāsa is, in the tradition's own terms, training and refining sound by sound.</p>
+        <p>Read this way, the fifty-one mātṛkās are not an exotic addendum to the science of breath and speech already built in this section — they are its most granular expression, taking the general claim "breath organizes speech" down to the smallest unit language has: the single sound. This is also why the tradition treats Mātṛkā Nyāsa as foundational preparation for the Mantra practice already introduced in Topic 21, and for the meditative absorption explored ahead in Section VI — Dhāraṇā, Dhyāna, and Samādhi are each, in part, an extension of the same principle of sustained, undivided attention that Mātṛkā Nyāsa first trains at the level of a single letter.</p>
+      </div>
+
+    </div>
+  </section>
+
   <footer class="synth">
     <div class="topic-number">SYNTHESIS</div>
     <h2>One Substrate, Three Expressions</h2>
@@ -688,6 +947,20 @@
   render('angry');
   btnAngry.addEventListener('click', ()=>{btnAngry.classList.add('active'); btnCalm.classList.remove('active'); render('angry');});
   btnCalm.addEventListener('click', ()=>{btnCalm.classList.add('active'); btnAngry.classList.remove('active'); render('calm');});
+})();
+
+// ---------- Matrika Nyasa: 8-tab switcher ----------
+(function(){
+  const buttons = document.querySelectorAll('#tabnav button');
+  const panels = document.querySelectorAll('.tabpanel');
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      b.classList.add('active');
+      document.getElementById(b.dataset.tab).classList.add('active');
+    });
+  });
 })();
 
 // ---------- Topic 27: five vayus map ----------
