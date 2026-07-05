@@ -2945,9 +2945,368 @@
   });
 })();
 </script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Five: Beyond the Word</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  .layer-row{border:1px solid var(--rule); background:var(--panel); padding:14px 18px; margin-bottom:8px; cursor:pointer; transition:border-color .2s;}
+  .layer-row:hover{border-color:var(--gold);}
+  .layer-row .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+  .layer-detail{margin-top:8px; font-size:14px; color:var(--parchment-dim); display:none;}
+  .layer-row.open .layer-detail{display:block;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .word-btn.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+  .slider-row{display:flex; align-items:center; gap:14px; margin:14px 0;}
+  input[type=range]{flex:1; accent-color:#B9922A;}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Five of the Series</div>
+    <h1 class="title">Beyond the <em>Word</em></h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section V of the white paper — closing this arc by widening the lens: the three qualities said to pervade all of nature including Citta itself, the grammarian claim that a word is grasped whole before it is heard in parts, and a return to Prāṇāyāma at a depth beyond mechanical breath control.</p>
+    <div class="epigraph">Every architecture named so far — Prāṇa, Citta, Vāk, the sheaths, the currents, the limbs — turns out to be made of, moved by, or aimed at the same three qualities this closing section finally names directly.</div>
+    <nav class="toc">
+      <a href="#t21">21 · The Three Guṇas</a>
+      <a href="#t22">22 · Sphoṭa — The Idea Behind the Word</a>
+      <a href="#t23">23 · Prāṇāyāma Beyond Breathing</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 21 -->
+  <section class="topic" id="t21">
+    <div class="topic-number">TOPIC 21</div>
+    <h2 class="topic-title">The Three Guṇas</h2>
+    <div class="sanskrit-head mono">त्रिगुण — the three threads nature is woven from</div>
+
+    <p class="lede">Every architecture this white paper has named — the sheaths, the currents, the fluctuations of Citta, even the quality of a spoken word — turns out, in Sāṅkhya-Yoga cosmology, to be a particular mixture of only three underlying qualities. Naming them directly, this late in the series, lets the reader look back across every prior topic and see the same three threads running through all of it.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">सत्त्वं रजस्तम इति गुणाः प्रकृतिसम्भवाः</div>
+      <div class="shloka-translit">sattvaṃ rajas tama iti guṇāḥ prakṛti-sambhavāḥ</div>
+      <p class="shloka-trans">"Sattva, Rajas, and Tamas — these are the qualities born of Prakṛti [primal nature]."</p>
+      <div class="shloka-source">Bhagavad Gītā, 14.5</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>सत्त्व</td><td>Sattva</td><td>clarity, luminosity, balance — the quality Dhyāna and Samādhi (Topics 18, 20) move toward</td></tr>
+      <tr><td>रजस्</td><td>Rajas</td><td>activity, agitation, restlessness — the quality behind an unbound Citta Vṛtti (Topic 10)</td></tr>
+      <tr><td>तमस्</td><td>Tamas</td><td>inertia, dullness, obscuration — the quality behind Nidrā and unexamined habit</td></tr>
+    </table>
+
+    <h3 class="sub">Not a Ranking to Escape, But a Mixture to Recognize</h3>
+    <p>A common misreading treats Sattva as simply "good" and the other two as simply "bad" to be eliminated. The texts are more precise: all three are present in every mental state and every spoken word at once, in shifting proportion, and the discipline's aim is not to destroy Rajas and Tamas but to shift the balance toward Sattva where clarity serves the moment. Even Vaikharī, ordinary speech from Topic 17, can be spoken with a predominantly Sattvic, Rajasic, or Tamasic quality regardless of its literal content.</p>
+
+    <div class="widget" id="w21">
+      <div class="widget-label">Interactive · Mix the Three Qualities</div>
+      <div class="slider-row"><label style="width:70px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--gold);">Sattva</label><input type="range" id="sattvaSlider" min="0" max="100" value="60"></div>
+      <div class="slider-row"><label style="width:70px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--copper);">Rajas</label><input type="range" id="rajasSlider" min="0" max="100" value="25"></div>
+      <div class="slider-row"><label style="width:70px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--indigo);">Tamas</label><input type="range" id="tamasSlider" min="0" max="100" value="15"></div>
+      <div class="readout" id="gunaReadout">Adjust the three sliders to see what a sentence spoken in that mixture tends to sound like.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Think of your last three conversations. Which Guṇa was most audible in your own voice in each — not the words, but the quality carrying them?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Sattva, Rajas, and Tamas are the three qualities said to underlie all of nature including mind and speech, present together in shifting proportion — the discipline's aim is rebalancing toward clarity, not eliminating the other two.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before your next sentence, silently guess which Guṇa is dominant in your current state, then notice whether the sentence that follows matches your guess.</div>
+    <div class="crosslinks">See also: <span>Topic 10 — Citta Vṛttis</span> · <span>Topic 17 — The Four Levels of Speech</span> · <span>Topic 20 — Samādhi</span></div>
+  </section>
+
+  <!-- TOPIC 22 -->
+  <section class="topic" id="t22">
+    <div class="topic-number">TOPIC 22</div>
+    <h2 class="topic-title">Sphoṭa: The Idea Behind the Word</h2>
+    <div class="sanskrit-head mono">स्फोट — meaning that bursts forth whole</div>
+
+    <p class="lede">Topic 17 traced speech down through four levels to Para, undifferentiated potential. The grammarian Bhartṛhari's theory of Sphoṭa addresses a narrower, sharper question left open by that scheme: when a listener hears a sequence of sounds one after another, how is a single, unified meaning grasped at all, given that no individual sound in the sequence carries the whole meaning by itself?</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">अनादिनिधनं ब्रह्म शब्दतत्त्वं यदक्षरम्</div>
+      <div class="shloka-translit">anādi-nidhanaṃ brahma śabda-tattvaṃ yad akṣaram</div>
+      <p class="shloka-trans">"Brahman is without beginning or end, the imperishable essence of which is the word."</p>
+      <div class="shloka-source">Bhartṛhari, Vākyapadīya, 1.1</div>
+    </div>
+
+    <h3 class="sub">The Problem Sphoṭa Solves</h3>
+    <p>The individual sounds of a spoken word are produced and vanish in strict sequence — by the time the last sound of "water" is heard, the first has already ceased. Yet a listener grasps "water" as one indivisible unit of meaning, not as a chain of separate noises. Bhartṛhari's answer is that the sequence of sounds is a means, not the meaning itself: the sounds trigger a sudden, whole "bursting forth" (sphoṭa) of the idea in the listener's mind, a unitary flash closely related to the Paśyantī level named in Topic 17.</p>
+
+    <table class="term-table">
+      <tr><td>स्फोट</td><td>Sphoṭa</td><td>the meaning-whole that bursts forth, distinct from the sequence of sounds that trigger it</td></tr>
+      <tr><td>ध्वनि</td><td>Dhvani</td><td>the physical sound itself — the vehicle, not the meaning it carries</td></tr>
+      <tr><td>शब्दतत्त्व</td><td>Śabda-tattva</td><td>the essential nature of the word, which Bhartṛhari identifies with ultimate reality itself</td></tr>
+    </table>
+
+    <p>The theory carries a striking further claim, echoing Vāk's cosmic role from Topic 3: for Bhartṛhari, this word-essence is not merely a feature of human language but identical with Brahman, the ground of reality — language, on this view, is not a tool reality happens to use, but the very substance reality is made of.</p>
+
+    <div class="widget" id="w22">
+      <div class="widget-label">Interactive · Sounds vs. the Burst of Meaning</div>
+      <svg width="100%" height="140" viewBox="0 0 600 140" id="sphotaSvg">
+        <g id="soundDots"></g>
+        <circle id="burstCircle" cx="300" cy="100" r="0" fill="none" stroke="#B9922A" stroke-width="2"/>
+      </svg>
+      <div class="btn-row"><button class="pill" id="playWordBtn">Hear "Water" Spoken</button></div>
+      <div class="readout" id="sphotaReadout">Click to see the sounds arrive one by one, then watch for the single burst of meaning.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Notice, when someone finishes a sentence, whether the meaning arrives gradually with each word or seems to arrive all at once near the end. What does that suggest about how you actually understand speech?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Sphoṭa names the sudden, unitary grasp of meaning that a sequence of sounds triggers but does not itself constitute — a theory that, for Bhartṛhari, identifies the essence of language with the essence of reality itself.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Listen to one sentence today specifically for the moment meaning "arrives" rather than for its individual words. Notice whether you can even isolate that moment.</div>
+    <div class="crosslinks">See also: <span>Topic 3 — Vāk</span> · <span>Topic 17 — The Four Levels of Speech</span></div>
+  </section>
+
+  <!-- TOPIC 23 -->
+  <section class="topic" id="t23">
+    <div class="topic-number">TOPIC 23</div>
+    <h2 class="topic-title">Prāṇāyāma Beyond Breathing</h2>
+    <div class="sanskrit-head mono">प्राणायाम — the current, deliberately extended</div>
+
+    <p class="lede">Topic 4 introduced breath regulation as a direct method for calming Citta. This closing topic returns to Prāṇāyāma at the depth the tradition itself claims for it — not merely a technique of inhalation and exhalation, but the deliberate lengthening and refinement of the very current Topic 1 opened this entire white paper with.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तस्मिन्सति श्वासप्रश्वासयोर्गतिविच्छेदः प्राणायामः</div>
+      <div class="shloka-translit">tasmin sati śvāsa-praśvāsayoḥ gati-vicchedaḥ prāṇāyāmaḥ</div>
+      <p class="shloka-trans">"That [seat] being established, Prāṇāyāma is the cutting off of the ordinary motion of inhalation and exhalation."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.49</div>
+    </div>
+
+    <h3 class="sub">"Cutting Off," Not Simply "Breathing Differently"</h3>
+    <p>The sūtra's chosen word, vicchedaḥ — a cutting off or interruption — is stronger than a modern reader might expect from a practice often described casually as "breath control." Patañjali is describing the deliberate suspension of breath's ordinary, unexamined rhythm, undertaken only once Āsana (Topic 14) is genuinely stable, so that the current Topic 7 divided into five directional flows can be extended and refined rather than merely observed.</p>
+
+    <table class="term-table">
+      <tr><td>श्वास</td><td>Śvāsa</td><td>inhalation, in its ordinary, unexamined rhythm</td></tr>
+      <tr><td>प्रश्वास</td><td>Praśvāsa</td><td>exhalation, in its ordinary, unexamined rhythm</td></tr>
+      <tr><td>गतिविच्छेद</td><td>Gati-viccheda</td><td>the deliberate interruption of that ordinary rhythm — the technical core of Prāṇāyāma</td></tr>
+    </table>
+
+    <h3 class="sub">Closing the Arc Back to Topic 1</h3>
+    <p>The Yoga Sūtras go on to describe the effect of sustained Prāṇāyāma as the thinning of whatever normally covers and obscures clarity of mind — language directly recalling Topic 6's sheaths, each a covering to be seen through rather than a final self. Read as the closing topic of this arc, Prāṇāyāma is offered as the single practice that most directly touches every architecture named across all five sections: it works the current of Topic 1, through the channels of Topic 8, at the center of Topic 9, to still the fluctuations of Topic 10, in service of the absorption named in Topic 20 — breath, at the end, doing the same work the whole white paper has been describing from its very first page.</p>
+
+    <div class="widget" id="w23">
+      <div class="widget-label">Interactive · The Current, Extended</div>
+      <svg width="100%" height="160" viewBox="0 0 600 160" id="pranayamaSvg">
+        <path id="breathWave" d="" stroke="#B9922A" stroke-width="2.5" fill="none"/>
+      </svg>
+      <div class="btn-row">
+        <button class="pill" id="ordinaryBreathBtn">Ordinary Rhythm</button>
+        <button class="pill" id="extendedBreathBtn">Prāṇāyāma — Extended</button>
+      </div>
+      <div class="readout" id="pranayamaReadout">Compare the ordinary breath rhythm to the deliberately lengthened rhythm of Prāṇāyāma.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Looking back across all twenty-three topics of this white paper, which single idea has most changed how you notice your own breath, mind, or speech?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Prāṇāyāma, read at full depth, is the deliberate interruption and lengthening of breath's ordinary rhythm — a single practice claimed to touch the current, the channels, the centers, the fluctuations, and the absorption named across this entire white paper.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>With a stable seat, lengthen one inhale and one exhale slightly beyond their ordinary rhythm, without strain, and notice whether the small deliberate pause between them differs from the moments this white paper has already asked you to notice throughout.</div>
+    <div class="crosslinks">See also: <span>Topic 1 — The Living Current</span> · <span>Topic 4 — Breath Before Thought</span> · <span>Topic 8 — Nāḍīs</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>The Arc Closed, Widened</h2>
+    <p>Section V closes this arc of the white paper by widening rather than narrowing: the three Guṇas showed that every architecture named so far is a mixture of only three underlying qualities; Sphoṭa showed that the meaning behind a spoken word is grasped as a sudden whole, not assembled sound by sound; and Prāṇāyāma, returned to at full depth, showed itself to be the single practice touching every layer this white paper has described — current, channel, center, fluctuation, and absorption alike.</p>
+    <p>Twenty-three topics have now moved from the invisible architecture of Prāṇa, Citta, and Vāk, through the body's sheaths and channels, through the eight limbs of discipline, to the three qualities and the theory of meaning underlying speech itself. Later sections of this white paper will extend the inquiry further — into the digital age's pressures on yogic speech, and into the daily practice that sustains all of it.</p>
+    <div class="next">NEXT IN THE SERIES → Part Six (Topics 24 onward): Breath Shapes Thought, Breath Shapes Speech, and the Digital Age's Challenge to Yogic Speech.</div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function(){
+  const sattva = document.getElementById('sattvaSlider');
+  const rajas = document.getElementById('rajasSlider');
+  const tamas = document.getElementById('tamasSlider');
+  const readout = document.getElementById('gunaReadout');
+  function describe(){
+    const s = +sattva.value, r = +rajas.value, t = +tamas.value;
+    const total = s+r+t || 1;
+    const ps = s/total, pr = r/total, pt = t/total;
+    let msg;
+    if(ps >= pr && ps >= pt) msg = 'Predominantly Sattvic: the sentence would likely land clear, calm, and easy to trust.';
+    else if(pr >= ps && pr >= pt) msg = 'Predominantly Rajasic: the sentence would likely land urgent, forceful, possibly agitating.';
+    else msg = 'Predominantly Tamasic: the sentence would likely land flat, heavy, or hard to follow.';
+    readout.textContent = `Sattva ${Math.round(ps*100)}% · Rajas ${Math.round(pr*100)}% · Tamas ${Math.round(pt*100)}% — ${msg}`;
+  }
+  [sattva,rajas,tamas].forEach(s=>s.addEventListener('input', describe));
+  describe();
+})();
+
+(function(){
+  const svg = document.getElementById('sphotaSvg');
+  const soundDots = document.getElementById('soundDots');
+  const burst = document.getElementById('burstCircle');
+  const readout = document.getElementById('sphotaReadout');
+  document.getElementById('playWordBtn').addEventListener('click', ()=>{
+    soundDots.innerHTML = '';
+    burst.setAttribute('r', 0); burst.setAttribute('opacity', 1);
+    const sounds = ['w','ā','t','ə','r'];
+    sounds.forEach((s,i)=>{
+      setTimeout(()=>{
+        const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+        c.setAttribute('cx', 100 + i*80); c.setAttribute('cy', 100); c.setAttribute('r', 8);
+        c.setAttribute('fill', '#525C8C');
+        soundDots.appendChild(c);
+        if(i===sounds.length-1){
+          readout.textContent = 'All sounds have sounded and vanished in sequence — watch for the burst.';
+          setTimeout(()=>{
+            let r = 0;
+            const grow = setInterval(()=>{
+              r += 4; burst.setAttribute('r', r); burst.setAttribute('opacity', Math.max(0, 1-r/80));
+              if(r>80) clearInterval(grow);
+            }, 20);
+            readout.textContent = 'The burst: a single, unified meaning arrives, distinct from any one sound in the sequence.';
+          }, 400);
+        }
+      }, i*350);
+    });
+    readout.textContent = 'Sounds arriving one by one...';
+  });
+})();
+
+(function(){
+  const wave = document.getElementById('breathWave');
+  const readout = document.getElementById('pranayamaReadout');
+  function drawWave(freq, label){
+    let d = 'M0 80 ';
+    for(let x=0; x<=600; x+=4){
+      const y = 80 + Math.sin(x*freq)*40;
+      d += `L${x} ${y.toFixed(1)} `;
+    }
+    wave.setAttribute('d', d);
+    readout.textContent = label;
+  }
+  document.getElementById('ordinaryBreathBtn').addEventListener('click', ()=> drawWave(0.045, 'Ordinary rhythm: frequent, unexamined cycles of inhale and exhale.'));
+  document.getElementById('extendedBreathBtn').addEventListener('click', ()=> drawWave(0.015, 'Prāṇāyāma: the same current, deliberately lengthened — fewer, longer, more spacious cycles.'));
+  drawWave(0.045, 'Ordinary rhythm shown by default — click either button to compare.');
+})();
+</script>
 
 </body>
 </html>
+
 
 
 
