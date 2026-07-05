@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part Five: Breath and Transformation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417;
+    --panel:#1B1D24;
+    --panel-2:#20222B;
+    --parchment:#E9E2D0;
+    --parchment-dim:#B9B3A2;
+    --gold:#B9922A;
+    --copper:#9C5A34;
+    --indigo:#525C8C;
+    --rule:#3A3B44;
+    --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--parchment);
+    font-family:'Source Serif 4', serif;
+    line-height:1.7;
+    font-size:17px;
+  }
+  ::selection{background:var(--gold);color:var(--ink);}
+
+  h1,h2,h3,.display{
+    font-family:'Spectral', serif;
+    font-weight:600;
+    color:var(--parchment);
+    letter-spacing:0.01em;
+  }
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  /* breath ribbon signature */
+  #ribbon{
+    position:fixed;
+    left:0; top:0; bottom:0;
+    width:46px;
+    z-index:5;
+    pointer-events:none;
+    border-right:1px solid var(--rule);
+  }
+  #ribbon svg{width:100%;height:100%;}
+
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:0 32px 120px 78px;
+  }
+
+  header.masthead{
+    padding:120px 0 60px 0;
+    border-bottom:1px solid var(--rule);
+    margin-bottom:64px;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:18px;
+  }
+  h1.title{
+    font-size:44px;
+    line-height:1.15;
+    margin:0 0 20px 0;
+    max-width:9.5em;
+  }
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{
+    margin-top:34px;
+    padding-left:22px;
+    border-left:2px solid var(--copper);
+    font-style:italic;
+    color:var(--parchment-dim);
+    font-size:18px;
+    max-width:36em;
+  }
+
+  nav.toc{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 22px;
+    margin-top:40px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+  }
+  nav.toc a{
+    color:var(--parchment-dim);
+    text-decoration:none;
+    border-bottom:1px dotted var(--rule);
+    padding-bottom:2px;
+  }
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{
+    padding-top:70px;
+    margin-top:10px;
+    border-top:1px solid var(--rule);
+  }
+  section.topic:first-of-type{border-top:none;}
+
+  .topic-number{
+    font-family:'JetBrains Mono', monospace;
+    color:var(--copper);
+    font-size:14px;
+    letter-spacing:0.14em;
+  }
+  h2.topic-title{
+    font-size:30px;
+    margin:8px 0 6px 0;
+  }
+  .sanskrit-head{
+    font-size:16px;
+    color:var(--indigo);
+    margin-bottom:28px;
+  }
+
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+
+  h3.sub{
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:500;
+    margin:36px 0 14px 0;
+  }
+
+  .shloka-block{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    padding:24px 28px;
+    margin:18px 0 26px 0;
+  }
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{
+    background:var(--panel-2);
+    border:1px solid var(--rule);
+    border-radius:var(--radius);
+    padding:26px;
+    margin:24px 0 30px 0;
+  }
+  .widget-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11.5px;
+    text-transform:uppercase;
+    letter-spacing:0.12em;
+    color:var(--copper);
+    margin-bottom:16px;
+  }
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{
+    background:transparent;
+    border:1px solid var(--rule);
+    color:var(--parchment-dim);
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    padding:7px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  input[type=range]{width:100%; accent-color:var(--gold);}
+
+  .reflect{
+    margin:26px 0;
+    padding:18px 22px;
+    border:1px dashed var(--rule);
+    border-radius:var(--radius);
+    color:var(--parchment-dim);
+    font-style:italic;
+  }
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  .mini-card{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    padding:16px 18px;
+    font-size:14.5px;
+    color:var(--parchment-dim);
+  }
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{
+    margin-top:30px;
+    padding:22px 26px;
+    background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06));
+    border-left:2px solid var(--gold);
+  }
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{
+    margin-top:90px;
+    padding-top:60px;
+    border-top:1px solid var(--rule);
+  }
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{
+    margin-top:34px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--parchment-dim);
+    border-top:1px solid var(--rule);
+    padding-top:22px;
+  }
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part Five of the Series</div>
+    <h1 class="title">Breath and <em>Transformation</em></h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section V of the white paper — a study of Prāṇa as the mechanism through which mind, emotion, and speech are physiologically and philosophically organized.</p>
+    <div class="epigraph">"Speech is not merely produced by the tongue; it is the final manifestation of Prāṇa moving through Citta. Yogic discipline refines this journey so that Vāk becomes an instrument of Truth (Satya), Compassion (Karuṇā), and Conscious Evolution."</div>
+    <nav class="toc">
+      <a href="#t23">23 · Prāṇāyāma Beyond Breathing</a>
+      <a href="#t24">24 · Breath Shapes Thought</a>
+      <a href="#t25">25 · Breath Shapes Emotion</a>
+      <a href="#t26">26 · Breath Shapes Speech</a>
+      <a href="#t27">27 · Udāna Vāyu</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 23 -->
+  <section class="topic" id="t23">
+    <div class="topic-number">TOPIC 23</div>
+    <h2 class="topic-title">Prāṇāyāma Beyond Breathing</h2>
+    <div class="sanskrit-head mono">प्राणायाम — energy management, not breath control</div>
+
+    <p class="lede">The common translation of Prāṇāyāma as "breath control" is a compression that loses the word's actual claim. Āyāma denotes extension and regulation — the tuning of a system already in motion — not the imposition of control over something otherwise chaotic. The distinction matters, because it changes what the practice is understood to be doing: not manufacturing a new resource, but redirecting one that already governs the body.</p>
+
+    <h3 class="sub">The Textual Claim</h3>
+    <p>Patañjali's placement of Prāṇāyāma is deliberate. In the Yoga Sūtras it appears immediately after Āsana and before Pratyāhāra — positioned as the hinge between the physical body and the sensory-mental body. It is offered neither as gymnastics nor as meditation proper, but as the specific transition mechanism between the two.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">तस्मिन् सति श्वासप्रश्वासयोर्गतिविच्छेदः प्राणायामः</div>
+      <div class="shloka-translit">tasmin sati śvāsa-praśvāsayor gati-vicchedaḥ prāṇāyāmaḥ</div>
+      <p class="shloka-trans">"That [posture] being steady, prāṇāyāma is the regulation of the natural movement of inhalation and exhalation."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 2.49</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>प्राण</td><td>Prāṇa</td><td>vital force; that which moves first and animates the rest</td></tr>
+      <tr><td>आयाम</td><td>Āyāma</td><td>extension, regulation — closer to "tuning" than to restraint</td></tr>
+      <tr><td>पूरक / कुम्भक / रेचक</td><td>Pūraka / Kumbhaka / Recaka</td><td>the three phases: fill, retain, release</td></tr>
+    </table>
+
+    <h3 class="sub">The Physiological Mechanism</h3>
+    <p>Respiration occupies an unusual position in human physiology: it is the only vital function that is both fully autonomic and fully voluntary. The brainstem's pre-Bötzinger complex generates rhythmic breathing without any conscious input, yet the same rhythm can be overridden at will by the motor cortex. This dual-control architecture is precisely why breath functions as a bridge between involuntary and willed states — a structural fact that the tradition identified through introspective practice long before it was described in respiratory neuroscience.</p>
+    <p>Extended exhalation reliably raises vagal tone, shifting the autonomic balance toward the parasympathetic branch: heart rate slows, cortisol output falls, and cortical activity trends toward slower, more synchronized patterns associated with calm alertness. Breath retention produces mild, transient hypercapnia, which several studies link to heightened interoceptive attention — a sharpened awareness of internal bodily signal that the tradition describes as the intensification of inward attention during Kumbhaka.</p>
+
+    <div class="widget" id="w23">
+      <div class="widget-label">Interactive · Breath Ratio Instrument</div>
+      <div class="btn-row" id="ratioButtons">
+        <button class="pill active" data-ratio="1,0,1,0" data-name="Sama Vṛtti (1:1)">Sama Vṛtti — 1:1</button>
+        <button class="pill" data-ratio="1,4,2,0" data-name="Nāḍī Śodhana (1:4:2)">Nāḍī Śodhana — 1:4:2</button>
+        <button class="pill" data-ratio="1,0,2,0" data-name="Extended Exhale (1:2)">Extended Exhale — 1:2</button>
+      </div>
+      <svg width="100%" height="180" viewBox="0 0 600 180" id="breathCircleSvg">
+        <circle cx="300" cy="90" r="10" fill="none" stroke="#3A3B44" stroke-width="1"/>
+        <circle id="breathCircle" cx="300" cy="90" r="40" fill="rgba(185,146,42,0.12)" stroke="#B9922A" stroke-width="1.5"/>
+        <text id="phaseLabel" x="300" y="95" text-anchor="middle" fill="#E9E2D0" font-family="JetBrains Mono" font-size="14">Pūraka</text>
+      </svg>
+      <div class="readout">Ratio: <b id="ratioName">Sama Vṛtti (1:1)</b> — phase: <b id="phaseReadout">inhale</b></div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Where in your day does your breath currently regulate you unconsciously, rather than you regulating it consciously?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Prāṇāyāma uses a naturally dual-control physiological system as a deliberate interface between will and biology — not breath exercise for its own sake, but access to states otherwise reached only involuntarily.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Sit upright. Inhale for four counts, hold for four, exhale for six, hold empty for two. Five minutes. Notice, do not force, any shift in clarity.</div>
+    <div class="crosslinks">See also: <span>Topic 7 — Five Prāṇas</span> · <span>Topic 24</span> · <span>Topic 31 — Samādhi</span></div>
+  </section>
+
+  <!-- TOPIC 24 -->
+  <section class="topic" id="t24">
+    <div class="topic-number">TOPIC 24</div>
+    <h2 class="topic-title">Breath Shapes Thought</h2>
+    <div class="sanskrit-head mono">वृत्ति — the fluctuation breath makes visible</div>
+
+    <p class="lede">The Haṭha Yoga Pradīpikā states the relationship between breath and mind without metaphorical softening: they move together. This is not a claim that breath merely accompanies thought — it is a claim of near-mechanical coupling, and it is stated as a practical instruction, not a poetic aside.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">चले वाते चलं चित्तं निश्चले निश्चलं भवेत्</div>
+      <div class="shloka-translit">cale vāte calaṁ cittaṁ niścale niścalaṁ bhavet</div>
+      <p class="shloka-trans">"When the breath wavers, the mind wavers; when the breath is steady, the mind becomes steady."</p>
+      <div class="shloka-source">Haṭha Yoga Pradīpikā, 2.2</div>
+    </div>
+
+    <h3 class="sub">Why the Tradition Targets Breath, Not Thought</h3>
+    <p>Later commentary built on this verse to make a strategic argument: breath is a more practical lever for mind-training than thought itself, precisely because it is directly manipulable while thought is not. One cannot simply decide to stop a fluctuation (vṛtti); one can, however, directly lengthen an exhale. The tradition's method is therefore indirect by design — govern the accessible variable to influence the inaccessible one.</p>
+
+    <h3 class="sub">The Cognitive-Science Correlate</h3>
+    <p>Respiration-locked cognition research shows measurable phase-dependent effects: certain points in the breath cycle, particularly early inhalation, correlate with faster reaction times and stronger memory encoding, mediated in part through olfactory-bulb and hippocampal circuits sensitive to nasal airflow. Separately, shallow, high-chest, thoracic breathing is well documented as a correlate — and in some models a contributor to — ruminative and anxious thought, while slow diaphragmatic breathing correlates with improved sustained attention.</p>
+    <p>Critically, the causal arrow runs both directions. Agitated thought produces shallow breath; shallow breath can independently sustain agitated thought. This bidirectionality is exactly what the Sanskrit verse implies through its symmetrical construction — breath and mind are described as co-arising, not as a simple one-way cause and effect.</p>
+
+    <div class="widget" id="w24">
+      <div class="widget-label">Interactive · Breath Rate vs. Mental Turbulence</div>
+      <label class="mono" style="font-size:12.5px; color:var(--parchment-dim);">Breath rate: <span id="rateVal">6</span> breaths / min</label>
+      <input type="range" min="4" max="20" value="6" id="rateSlider">
+      <svg width="100%" height="160" viewBox="0 0 600 160" style="margin-top:14px;">
+        <line x1="0" y1="45" x2="600" y2="45" stroke="#3A3B44" stroke-dasharray="2,3"/>
+        <text x="4" y="30" fill="#525C8C" font-family="JetBrains Mono" font-size="10">BREATH</text>
+        <path id="breathWave" stroke="#B9922A" stroke-width="1.6" fill="none"/>
+        <line x1="0" y1="120" x2="600" y2="120" stroke="#3A3B44" stroke-dasharray="2,3"/>
+        <text x="4" y="105" fill="#525C8C" font-family="JetBrains Mono" font-size="10">MENTAL TURBULENCE</text>
+        <path id="turbWave" stroke="#9C5A34" stroke-width="1.6" fill="none"/>
+      </svg>
+      <div class="readout">Slower, even breath → flatter turbulence trace. Faster, irregular breath → sharper, more chaotic trace.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Notice your breath the next time a thought spirals. Is it shallow, held, irregular — and what happens to the thought if you lengthen only the exhale?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Breath and thought behave as coupled oscillators rather than a strict cause and its effect. Working on breath is a legitimate, and often more accessible, entry point into working on thought.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Breathe irregularly on purpose for one minute; note the thought quality. Breathe slowly and evenly for one minute; note the shift. Observation only, no judgment.</div>
+    <div class="crosslinks">See also: <span>Topic 2 — Citta</span> · <span>Topic 10 — Citta Vṛttis</span> · <span>Topic 16</span></div>
+  </section>
+
+  <!-- TOPIC 25 -->
+  <section class="topic" id="t25">
+    <div class="topic-number">TOPIC 25</div>
+    <h2 class="topic-title">Breath Shapes Emotion</h2>
+    <div class="sanskrit-head mono">भाव — the feeling-tone breath carries</div>
+
+    <p class="lede">The Bhagavad Gītā's account of inner sacrifice — practitioners "offering" the outgoing breath into the incoming, and the incoming into the outgoing — frames deliberate breath exchange as an act with more than mechanical consequence. The sacrificial language is not incidental: it signals that intentional breath work was understood to carry emotional and even ethical weight, not simply physiological effect.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">अपाने जुह्वति प्राणं प्राणेऽपानं तथापरे</div>
+      <div class="shloka-translit">apāne juhvati prāṇaṁ prāṇe'pānaṁ tathāpare</div>
+      <p class="shloka-trans">"Some offer the outgoing breath into the incoming; others, the incoming into the outgoing."</p>
+      <div class="shloka-source">Bhagavad Gītā, 4.29</div>
+    </div>
+
+    <h3 class="sub">Emotion Has a Breath Signature</h3>
+    <p>Affective physiology research using respiratory belts and autonomic monitoring across induced-emotion paradigms consistently identifies distinct breathing signatures per emotional state. Anger and fear correlate with faster, shallower, irregular respiration and heightened sympathetic arousal; contentment and calm correlate with slower, deeper, regular breathing under parasympathetic dominance.</p>
+
+    <div class="grid2">
+      <div class="mini-card"><span class="lbl">High Arousal</span>Rapid, shallow, irregular breath — anger, fear, panic. Sympathetic dominance.</div>
+      <div class="mini-card"><span class="lbl">Low Arousal</span>Slow, deep, regular breath — calm, contentment. Parasympathetic dominance, elevated vagal tone.</div>
+    </div>
+
+    <h3 class="sub">The Reversible Pathway</h3>
+    <p>The more consequential finding, for practice, is that the relationship runs in both directions and can be deliberately exploited: adopting the breathing pattern typical of calm — slow, diaphragmatic, extended exhale — measurably shifts self-reported emotional state toward calm, even before the original trigger is resolved. This is the physiological basis of breath-based clinical anxiety interventions, and it is functionally identical to the yogic claim that breath is a lever on emotion, not merely a passive symptom of it. The polyvagal account of graded autonomic states — from mobilized threat response to calm social engagement — offers contemporary vocabulary for what the tradition described through Prāṇa and Nāḍī balance.</p>
+
+    <div class="widget" id="w25">
+      <div class="widget-label">Interactive · Emotion Circumplex</div>
+      <div class="btn-row" id="emoButtons">
+        <button class="pill" data-x="450" data-y="60" data-name="Anger">Anger</button>
+        <button class="pill" data-x="150" data-y="60" data-name="Fear">Fear</button>
+        <button class="pill active" data-x="150" data-y="220" data-name="Calm">Calm</button>
+        <button class="pill" data-x="450" data-y="220" data-name="Joy">Joy</button>
+      </div>
+      <svg width="100%" height="280" viewBox="0 0 600 280">
+        <line x1="300" y1="10" x2="300" y2="270" stroke="#3A3B44"/>
+        <line x1="20" y1="140" x2="580" y2="140" stroke="#3A3B44"/>
+        <text x="300" y="24" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="10">HIGH AROUSAL</text>
+        <text x="300" y="266" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="10">LOW AROUSAL</text>
+        <text x="26" y="134" fill="#525C8C" font-family="JetBrains Mono" font-size="10">− VALENCE</text>
+        <text x="574" y="134" text-anchor="end" fill="#525C8C" font-family="JetBrains Mono" font-size="10">+ VALENCE</text>
+        <circle id="emoDot" cx="150" cy="220" r="9" fill="#B9922A"/>
+      </svg>
+      <div class="readout">Selected state: <b id="emoName">Calm</b> — <span id="emoDesc">slow, deep, regular breath; extended exhale.</span></div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall your last strong emotional reaction. What was your breath doing before you could name the feeling?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Emotional states have characteristic breathing signatures — and, critically, the reverse pathway also works: deliberately changing the breath can shift the emotion itself, not merely mask it.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Next time irritation rises, extend the exhale to twice the length of the inhale for six breaths, then assess what remains of the original intensity.</div>
+    <div class="crosslinks">See also: <span>Topic 14 — The Three Guṇas</span> · <span>Topic 26</span> · <span>Topic 35 — Conflict Transformation</span></div>
+  </section>
+
+  <!-- TOPIC 26 -->
+  <section class="topic" id="t26">
+    <div class="topic-number">TOPIC 26</div>
+    <h2 class="topic-title">Breath Shapes Speech</h2>
+    <div class="sanskrit-head mono">वाक् — utterance as shaped exhalation</div>
+
+    <p class="lede">The Ṛgveda's Devī Sūkta personifies Vāk as a force that moves among the animating powers of the cosmos rather than existing apart from them. Read structurally rather than devotionally, the hymn makes an early version of a claim this section develops physiologically: speech is never a neutral technical output. It always carries the quality of the force that produces it.</p>
+
+    <h3 class="sub">Speech as Controlled Exhalation</h3>
+    <p>Physically, all speech is exhalation shaped by the vocal apparatus. Subglottal air pressure from the lungs drives vocal-fold vibration; the rate and evenness of that airflow directly determines pitch stability, loudness control, and phrasing. This is not analogy — it is the literal mechanism of phonation.</p>
+    <p>Anger and anxiety typically produce shallow, high-chest breathing with reduced diaphragmatic support. The resulting speech, well documented in vocal-emotion research, shows higher and more variable pitch, faster rate, and shorter, fragmented phrasing. Calm, deliberate speech, supported by full diaphragmatic breath, shows the reverse profile: steadier pitch, even pacing, longer uninterrupted phrases.</p>
+
+    <h3 class="sub">The Listener Hears the Breath Before the Words</h3>
+    <p>Prosody — the acoustic-breath signature of an utterance — is processed in part through faster subcortical pathways than full lexical meaning. Listeners reliably decode arousal and hostility from these breath-driven acoustic cues before they process semantic content. The breath supporting a sentence often communicates before the sentence's words do — precisely the intuition behind the Vedic claim that Vāk carries the quality of the Prāṇa producing it. Clinical speech-language pathology draws on the same physiology in reverse: diaphragmatic breath-support training is standard practice for improving vocal control and reducing the acoustic markers of distress in the voice.</p>
+
+    <div class="widget" id="w26">
+      <div class="widget-label">Interactive · Angry vs. Calm Speech Trace</div>
+      <div class="btn-row">
+        <button class="pill active" id="btnAngry" data-mode="angry">Angry Speech</button>
+        <button class="pill" id="btnCalm" data-mode="calm">Calm Speech</button>
+      </div>
+      <svg width="100%" height="140" viewBox="0 0 600 140" id="speechSvg">
+        <text x="4" y="16" fill="#525C8C" font-family="JetBrains Mono" font-size="10">PITCH / PHRASING</text>
+        <g id="speechBars"></g>
+      </svg>
+      <div class="readout" id="speechReadout">Fast rate · high pitch variance · short fragmented phrases · shallow breath support.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Before your next difficult conversation, notice your breath in the sixty seconds beforehand. If shallow, what would it take to lengthen it before your first sentence?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Speech is exhalation shaped by intention. The physical quality of the breath supporting a sentence is communicated to the listener as reliably — and often faster — than the sentence's semantic content.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Say a mildly stressful sentence on a shallow, held breath, then again after one full diaphragmatic inhale and controlled exhale. Compare.</div>
+    <div class="crosslinks">See also: <span>Topic 17 — Four Levels of Speech</span> · <span>Topic 20 — Ahimsa in Language</span> · <span>Topic 25</span></div>
+  </section>
+
+  <!-- TOPIC 27 -->
+  <section class="topic" id="t27">
+    <div class="topic-number">TOPIC 27</div>
+    <h2 class="topic-title">Udāna Vāyu</h2>
+    <div class="sanskrit-head mono">उदान — the upward current of expression</div>
+
+    <p class="lede">Of the five currents mapped in Topic 7, one alone moves upward and outward through the throat: the current classically assigned to upright posture, physical growth, and speech — and, in its complete form, to the departure of consciousness at death.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">यच्चोर्ध्वमुत्क्रामयति तदुदानः</div>
+      <div class="shloka-translit">yac cordhvam utkrāmayati tad udānaḥ</div>
+      <p class="shloka-trans">"That which leads upward and out is Udāna."</p>
+      <div class="shloka-source">Prashna Upaniṣad, 3.9</div>
+    </div>
+
+    <h3 class="sub">Where the Empirical Claim Ends</h3>
+    <p>Honesty requires separating two different kinds of claim the tradition makes about Udāna. The first — its seat in the throat and its governance of speech — maps with real precision onto known anatomy: the laryngeal muscles, vocal folds, and pharyngeal constrictors that convert subglottal pressure into shaped sound sit exactly where the tradition places Udāna's seat. Postural physiology corroborates the traditional pairing of growth and expression under one current: neck and upper-spine alignment measurably affects laryngeal position and airway alignment, and poor postural support is clinically documented to reduce vocal efficiency.</p>
+    <p>The second claim — Udāna's role in Utkrānti, the upward departure of consciousness at death — sits outside what physiology can currently test. It is presented here as a traditional doctrinal position, not an empirical finding, because collapsing that distinction would misrepresent both the science and the tradition.</p>
+
+    <div class="widget" id="w27">
+      <div class="widget-label">Interactive · The Five Vāyus</div>
+      <svg width="100%" height="260" viewBox="0 0 600 260">
+        <g id="vayuMap">
+          <rect data-name="Prāṇa" data-desc="Chest and head — governs inhalation, perception, and intake." x="230" y="10" width="140" height="55" rx="2" fill="rgba(82,92,140,0.18)" stroke="#525C8C" class="vzone"/>
+          <text x="300" y="42" text-anchor="middle" fill="#E9E2D0" font-family="Spectral" font-size="14">Prāṇa</text>
+
+          <rect data-name="Udāna" data-desc="Throat — governs posture, growth, and speech; the current this topic examines." x="255" y="70" width="90" height="34" rx="2" fill="rgba(185,146,42,0.22)" stroke="#B9922A" stroke-width="2" class="vzone" id="udanaZone"/>
+          <text x="300" y="92" text-anchor="middle" fill="#E9E2D0" font-family="Spectral" font-size="13">Udāna</text>
+
+          <rect data-name="Samāna" data-desc="Navel — governs digestion and the assimilation of experience." x="230" y="110" width="140" height="50" rx="2" fill="rgba(156,90,52,0.16)" stroke="#9C5A34" class="vzone"/>
+          <text x="300" y="140" text-anchor="middle" fill="#E9E2D0" font-family="Spectral" font-size="14">Samāna</text>
+
+          <rect data-name="Apāna" data-desc="Pelvis — governs elimination and downward release." x="230" y="166" width="140" height="50" rx="2" fill="rgba(82,92,140,0.14)" stroke="#525C8C" class="vzone"/>
+          <text x="300" y="196" text-anchor="middle" fill="#E9E2D0" font-family="Spectral" font-size="14">Apāna</text>
+
+          <rect data-name="Vyāna" data-desc="Whole body — governs circulation and the coordination of all currents." x="140" y="222" width="320" height="34" rx="2" fill="rgba(233,226,208,0.06)" stroke="#8A8477" class="vzone"/>
+          <text x="300" y="244" text-anchor="middle" fill="#E9E2D0" font-family="Spectral" font-size="13">Vyāna</text>
+        </g>
+        <path id="udanaArrow" d="M300 70 L300 20" stroke="#B9922A" stroke-width="2" marker-end="url(#arrowhead)" opacity="0"/>
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#B9922A"/>
+          </marker>
+        </defs>
+      </svg>
+      <div class="btn-row" style="margin-top:10px;">
+        <button class="pill" id="speakBtn">Trigger Speech Event →</button>
+      </div>
+      <div class="readout" id="vayuReadout">Click a zone to read its function, or trigger a speech event to see Udāna's upward current animate.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Sit upright and notice how much easier full-voiced, unstrained speech becomes compared with speaking while slouched. What does this suggest about a shared current governing posture and expression?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Udāna Vāyu is the yogic name for the specific upward current governing posture, growth, and the throat mechanics of speech — its anatomical correlate is well identified even where the tradition's full doctrinal scope extends beyond what physiology currently measures.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Speak one sentence upright, spine long, throat open. Repeat slouched, chin dropped. Compare vocal ease and resonance without judgment.</div>
+    <div class="crosslinks">See also: <span>Topic 7 — Five Prāṇas</span> · <span>Topic 9 — Chakras as Centers of Expression</span> · <span>Topic 26</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>One Substrate, Three Expressions</h2>
+    <p>Across these five topics, one claim recurs in different vocabularies: breath is not incidental to mind, emotion, or speech — it is a shared substrate organizing all three. Yogic anatomy names this substrate Prāṇa and traces its specific expressive current as Udāna. Contemporary physiology, without that vocabulary, independently documents the same coupling: between respiratory rhythm and cognition, between breath pattern and emotional state, between breath support and vocal-acoustic quality.</p>
+    <p>The practical implication carried into Section VI is direct: if breath organizes thought, emotion, and speech simultaneously, it is the most efficient point of intervention available to a practitioner seeking to change any one of the three.</p>
+    <div class="next">NEXT IN THE SERIES → Part Six — Yogic Technology (Topics 28–33): Meditation as Speech Refinement, Dhāraṇā, Dhyāna, Samādhi, the Digital Age and Yogic Speech, and the Conscious Communication Framework.</div>
+  </footer>
+
+</div>
+
+<script>
+// ---------- Breath ribbon (ambient signature) ----------
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ---------- Topic 23: breath ratio wheel ----------
+(function(){
+  const buttons = document.querySelectorAll('#ratioButtons .pill');
+  const circle = document.getElementById('breathCircle');
+  const phaseLabel = document.getElementById('phaseLabel');
+  const phaseReadout = document.getElementById('phaseReadout');
+  const ratioName = document.getElementById('ratioName');
+  let ratio = [1,0,1,0]; // in,hold,out,hold (relative units)
+  let unit = 900; // ms per unit
+  let phaseIdx = 0, elapsed = 0, raf;
+  const names = ['Pūraka','Antara Kumbhaka','Recaka','Bāhya Kumbhaka'];
+  const minR = [40,58,40,26];
+
+  function totalMs(){ return ratio.map(r=>r*unit); }
+
+  function tick(ts){
+    if(!tick.last) tick.last = ts;
+    const dt = ts - tick.last; tick.last = ts;
+    elapsed += dt;
+    const durations = totalMs();
+    while(durations[phaseIdx]===0){ phaseIdx=(phaseIdx+1)%4; }
+    if(elapsed >= durations[phaseIdx]){
+      elapsed = 0;
+      do{ phaseIdx=(phaseIdx+1)%4; }while(durations[phaseIdx]===0);
+    }
+    const prog = durations[phaseIdx] ? elapsed/durations[phaseIdx] : 1;
+    let r;
+    if(phaseIdx===0) r = 40 + prog*40;       // inhale grows
+    else if(phaseIdx===1) r = 80;             // hold full
+    else if(phaseIdx===2) r = 80 - prog*54;   // exhale shrinks
+    else r = 26;                              // hold empty
+    circle.setAttribute('r', r);
+    phaseLabel.textContent = names[phaseIdx].split(' ')[0];
+    phaseReadout.textContent = names[phaseIdx];
+    raf = requestAnimationFrame(tick);
+  }
+  raf = requestAnimationFrame(tick);
+
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      ratio = b.dataset.ratio.split(',').map(Number);
+      ratioName.textContent = b.dataset.name;
+      phaseIdx = 0; elapsed = 0;
+    });
+  });
+})();
+
+// ---------- Topic 24: breath rate vs mental turbulence ----------
+(function(){
+  const slider = document.getElementById('rateSlider');
+  const rateVal = document.getElementById('rateVal');
+  const breathWave = document.getElementById('breathWave');
+  const turbWave = document.getElementById('turbWave');
+  let t = 0;
+  function render(){
+    const rate = parseInt(slider.value,10);
+    rateVal.textContent = rate;
+    const freq = rate/60; // cycles per second
+    let bd = 'M0 45 ';
+    let td = 'M0 120 ';
+    const jitter = (rate-4)/16; // 0..1, higher rate = more turbulence
+    for(let x=0;x<=600;x+=6){
+      const time = x/60;
+      const by = 45 - Math.sin((time*freq*2*Math.PI) + t)*22;
+      bd += `L${x} ${by.toFixed(1)} `;
+      const noise = (Math.sin(x*0.9+t*13)+Math.sin(x*0.31+t*7))*jitter*14;
+      const ty = 120 - Math.sin((time*freq*2*Math.PI)+t)*(6+jitter*10) + noise;
+      td += `L${x} ${ty.toFixed(1)} `;
+    }
+    breathWave.setAttribute('d', bd);
+    turbWave.setAttribute('d', td);
+    t += 0.03;
+    requestAnimationFrame(render);
+  }
+  requestAnimationFrame(render);
+})();
+
+// ---------- Topic 25: emotion circumplex ----------
+(function(){
+  const buttons = document.querySelectorAll('#emoButtons .pill');
+  const dot = document.getElementById('emoDot');
+  const emoName = document.getElementById('emoName');
+  const emoDesc = document.getElementById('emoDesc');
+  const desc = {
+    Anger:'rapid, shallow, irregular breath; sympathetic dominance.',
+    Fear:'quick, high, held breath; sympathetic dominance, restricted exhale.',
+    Calm:'slow, deep, regular breath; extended exhale.',
+    Joy:'full, relaxed, rhythmic breath; balanced autonomic tone.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      dot.setAttribute('cx', b.dataset.x);
+      dot.setAttribute('cy', b.dataset.y);
+      emoName.textContent = b.dataset.name;
+      emoDesc.textContent = desc[b.dataset.name];
+    });
+  });
+})();
+
+// ---------- Topic 26: angry vs calm speech trace ----------
+(function(){
+  const btnAngry = document.getElementById('btnAngry');
+  const btnCalm = document.getElementById('btnCalm');
+  const bars = document.getElementById('speechBars');
+  const readout = document.getElementById('speechReadout');
+  function render(mode){
+    bars.innerHTML = '';
+    const n = 60;
+    for(let i=0;i<n;i++){
+      const x = 10 + i*(580/n);
+      let h;
+      if(mode==='angry'){
+        h = 20 + Math.abs(Math.sin(i*0.9))*70 + (Math.random()*30);
+      } else {
+        h = 30 + Math.abs(Math.sin(i*0.35))*35;
+      }
+      const y = 120 - h;
+      const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', 580/n*0.6);
+      rect.setAttribute('height', h);
+      rect.setAttribute('fill', mode==='angry' ? '#9C5A34' : '#B9922A');
+      rect.setAttribute('opacity', '0.85');
+      bars.appendChild(rect);
+    }
+    readout.textContent = mode==='angry'
+      ? 'Fast rate · high pitch variance · short fragmented phrases · shallow breath support.'
+      : 'Measured rate · low pitch variance · long uninterrupted phrases · full diaphragmatic support.';
+  }
+  render('angry');
+  btnAngry.addEventListener('click', ()=>{btnAngry.classList.add('active'); btnCalm.classList.remove('active'); render('angry');});
+  btnCalm.addEventListener('click', ()=>{btnCalm.classList.add('active'); btnAngry.classList.remove('active'); render('calm');});
+})();
+
+// ---------- Topic 27: five vayus map ----------
+(function(){
+  const zones = document.querySelectorAll('.vzone');
+  const readout = document.getElementById('vayuReadout');
+  const arrow = document.getElementById('udanaArrow');
+  const speakBtn = document.getElementById('speakBtn');
+  zones.forEach(z=>{
+    z.style.cursor='pointer';
+    z.addEventListener('click', ()=>{
+      readout.innerHTML = `<b>${z.dataset.name}</b> — ${z.dataset.desc}`;
+    });
+  });
+  speakBtn.addEventListener('click', ()=>{
+    arrow.style.transition = 'none';
+    arrow.setAttribute('opacity','1');
+    arrow.setAttribute('d','M300 70 L300 70');
+    requestAnimationFrame(()=>{
+      arrow.style.transition = 'all 0.7s ease-out';
+      arrow.setAttribute('d','M300 70 L300 14');
+    });
+    setTimeout(()=>{ arrow.style.transition='opacity 0.6s ease'; arrow.setAttribute('opacity','0'); }, 900);
+    readout.innerHTML = '<b>Speech event triggered</b> — Udāna carries the current upward through the throat into shaped sound.';
+  });
+})();
+</script>
+
+</body>
+</html>
