@@ -988,6 +988,529 @@
   });
 })();
 </script>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Śāstrex Vāk — Part One: The Foundation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#131417; --panel:#1B1D24; --panel-2:#20222B;
+    --parchment:#E9E2D0; --parchment-dim:#B9B3A2;
+    --gold:#B9922A; --copper:#9C5A34; --indigo:#525C8C;
+    --rule:#3A3B44; --radius:2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; background:var(--ink); color:var(--parchment); font-family:'Source Serif 4', serif; line-height:1.7; font-size:17px;}
+  ::selection{background:var(--gold); color:var(--ink);}
+  h1,h2,h3,.display{font-family:'Spectral', serif; font-weight:600; color:var(--parchment); letter-spacing:0.01em;}
+  .mono{font-family:'JetBrains Mono', monospace; letter-spacing:0.02em;}
+
+  #ribbon{position:fixed; left:0; top:0; bottom:0; width:46px; z-index:5; pointer-events:none; border-right:1px solid var(--rule);}
+  #ribbon svg{width:100%; height:100%;}
+
+  .wrap{max-width:760px; margin:0 auto; padding:0 32px 120px 78px;}
+
+  header.masthead{padding:120px 0 60px 0; border-bottom:1px solid var(--rule); margin-bottom:64px;}
+  .eyebrow{font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold); margin-bottom:18px;}
+  h1.title{font-size:44px; line-height:1.15; margin:0 0 20px 0; max-width:9.5em;}
+  h1.title em{font-style:italic; color:var(--indigo); font-weight:400;}
+  .epigraph{margin-top:34px; padding-left:22px; border-left:2px solid var(--copper); font-style:italic; color:var(--parchment-dim); font-size:18px; max-width:36em;}
+  nav.toc{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:13px;}
+  nav.toc a{color:var(--parchment-dim); text-decoration:none; border-bottom:1px dotted var(--rule); padding-bottom:2px;}
+  nav.toc a:hover{color:var(--gold); border-color:var(--gold);}
+
+  section.topic{padding-top:70px; margin-top:10px; border-top:1px solid var(--rule);}
+  section.topic:first-of-type{border-top:none;}
+  .topic-number{font-family:'JetBrains Mono', monospace; color:var(--copper); font-size:14px; letter-spacing:0.14em;}
+  h2.topic-title{font-size:30px; margin:8px 0 6px 0;}
+  .sanskrit-head{font-size:16px; color:var(--indigo); margin-bottom:28px;}
+  p{margin:0 0 18px 0; color:var(--parchment);}
+  .lede{font-size:19px; color:var(--parchment); max-width:34em;}
+  h3.sub{font-size:15px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); font-family:'JetBrains Mono', monospace; font-weight:500; margin:36px 0 14px 0;}
+
+  .shloka-block{background:var(--panel); border:1px solid var(--rule); border-radius:var(--radius); padding:24px 28px; margin:18px 0 26px 0;}
+  .shloka-sa{font-size:20px; color:var(--gold); margin-bottom:6px;}
+  .shloka-translit{font-family:'JetBrains Mono', monospace; font-style:italic; color:var(--indigo); font-size:14px; margin-bottom:10px;}
+  .shloka-trans{color:var(--parchment-dim); font-size:15.5px; margin-bottom:0;}
+  .shloka-source{font-family:'JetBrains Mono', monospace; font-size:11.5px; color:var(--parchment-dim); text-transform:uppercase; letter-spacing:0.08em; margin-top:10px;}
+
+  .term-table{width:100%; border-collapse:collapse; margin:14px 0 26px 0; font-size:15px;}
+  .term-table td{padding:8px 10px; border-bottom:1px solid var(--rule); vertical-align:top;}
+  .term-table td:first-child{color:var(--gold); font-family:'JetBrains Mono', monospace; white-space:nowrap;}
+  .term-table td:nth-child(2){color:var(--indigo); font-style:italic; white-space:nowrap;}
+  .term-table td:last-child{color:var(--parchment-dim);}
+
+  .widget{background:var(--panel-2); border:1px solid var(--rule); border-radius:var(--radius); padding:26px; margin:24px 0 30px 0;}
+  .widget-label{font-family:'JetBrains Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.12em; color:var(--copper); margin-bottom:16px;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;}
+  button.pill{background:transparent; border:1px solid var(--rule); color:var(--parchment-dim); font-family:'JetBrains Mono', monospace; font-size:12.5px; padding:7px 14px; border-radius:20px; cursor:pointer; transition:all .15s ease;}
+  button.pill:hover{border-color:var(--gold); color:var(--gold);}
+  button.pill.active{background:var(--gold); color:var(--ink); border-color:var(--gold);}
+  .readout{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); margin-top:10px;}
+  .readout b{color:var(--gold);}
+
+  .reflect{margin:26px 0; padding:18px 22px; border:1px dashed var(--rule); border-radius:var(--radius); color:var(--parchment-dim); font-style:italic;}
+  .reflect .lbl{font-style:normal; font-family:'JetBrains Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--copper); display:block; margin-bottom:8px;}
+
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin:18px 0 26px 0;}
+  .grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin:18px 0 26px 0;}
+  @media(max-width:640px){.grid2, .grid3{grid-template-columns:1fr;}}
+  .mini-card{background:var(--panel); border:1px solid var(--rule); padding:16px 18px; font-size:14.5px; color:var(--parchment-dim);}
+  .mini-card .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:6px;}
+
+  .takeaway{margin-top:30px; padding:22px 26px; background:linear-gradient(135deg, rgba(185,146,42,0.08), rgba(156,90,52,0.06)); border-left:2px solid var(--gold);}
+  .takeaway .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:8px;}
+  .takeaway p{margin:0; color:var(--parchment); font-size:16px;}
+  .practice{margin-top:14px; font-size:14.5px; color:var(--parchment-dim);}
+  .practice .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:6px;}
+  .crosslinks{margin-top:10px; font-size:13px; font-family:'JetBrains Mono', monospace; color:var(--parchment-dim);}
+  .crosslinks span{color:var(--indigo);}
+
+  footer.synth{margin-top:90px; padding-top:60px; border-top:1px solid var(--rule);}
+  footer.synth h2{font-size:26px;}
+  footer.synth .next{margin-top:34px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--parchment-dim); border-top:1px solid var(--rule); padding-top:22px;}
+
+  /* topic-specific widget styles */
+  .cloud{cursor:grab; transition:opacity .4s ease, transform .4s ease;}
+  .cloud.gone{opacity:0; transform:translateY(-40px); pointer-events:none;}
+  .word-btn{background:var(--panel); border:1px solid var(--rule); color:var(--parchment); font-family:'Spectral', serif; font-size:15px; padding:10px 18px; border-radius:20px; cursor:pointer; margin:4px;}
+  .word-btn:hover{border-color:var(--gold); color:var(--gold);}
+  .consequence-box{margin-top:14px; padding:16px 18px; background:var(--panel); border-left:2px solid var(--indigo); font-size:14.5px; color:var(--parchment-dim); min-height:24px;}
+  .tech-toggle{padding:16px 18px; border:1px solid var(--rule); cursor:pointer; font-size:14.5px; color:var(--parchment-dim); transition:border-color .2s;}
+  .tech-toggle:hover{border-color:var(--gold);}
+  .tech-toggle .lbl{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--copper); text-transform:uppercase; letter-spacing:0.08em; display:block; margin-bottom:8px;}
+</style>
+</head>
+<body>
+
+<div id="ribbon"><svg viewBox="0 0 46 800" preserveAspectRatio="none">
+  <path id="ribbonPath" d="" stroke="#B9922A" stroke-width="1.4" fill="none" opacity="0.55"/>
+</svg></div>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Śāstrex Vāk · shastrex.vak.culturalmusings.com · Part One of the Series</div>
+    <h1 class="title">The <em>Foundation</em></h1>
+    <p style="max-width:32em; color:var(--parchment-dim); font-size:16px;">Section I of the white paper — the invisible architecture beneath speech: the current that animates it (Prāṇa), the sky it moves through (Citta), and the word it becomes (Vāk).</p>
+    <div class="epigraph">Prāṇa energizes. Citta interprets. Vāk manifests. Every spoken word is the visible edge of an invisible discipline.</div>
+    <nav class="toc">
+      <a href="#t1">1 · The Living Current — What is Prāṇa?</a>
+      <a href="#t2">2 · Citta — The Inner Sky</a>
+      <a href="#t3">3 · Vāk — The Mystery of Speech</a>
+      <a href="#t4">4 · Breath Before Thought</a>
+      <a href="#t5">5 · Yogic Discipline as Technology</a>
+    </nav>
+  </header>
+
+  <!-- TOPIC 1 -->
+  <section class="topic" id="t1">
+    <div class="topic-number">TOPIC 1</div>
+    <h2 class="topic-title">The Living Current: What is Prāṇa?</h2>
+    <div class="sanskrit-head mono">प्राण — the current that nourishes every field</div>
+
+    <p class="lede">Before mind, before word, there is current. Prāṇa is the tradition's name for the animating force that a river-metaphor makes intuitive: a single flow that reaches every field it touches, sustaining growth it does not itself resemble. The claim under this metaphor is specific — life is sustained not merely by the mechanical fact of ventilation, but by a conscious, organizing energy of which breathing is only the most visible expression.</p>
+
+    <h3 class="sub">The Textual Claim</h3>
+    <p>The Prashna Upanishad devotes its second chapter to establishing Prāṇa's primacy among the body's functions. In the text's own account, when Prāṇa rises to depart the body in a thought experiment proposed to the other senses, speech, mind, eye, and ear all rise with it; when it settles, they settle with it — the other faculties are described following it as bees follow their queen. Satisfied by this demonstration, the senses are said to praise Prāṇa as sovereign among them.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">अरा इव रथनाभौ प्राणे सर्वं प्रतिष्ठितम्</div>
+      <div class="shloka-translit">arā iva rathanābhau prāṇe sarvaṃ pratiṣṭhitam</div>
+      <p class="shloka-trans">"As spokes are fixed in the hub of a wheel, everything is established in Prāṇa."</p>
+      <div class="shloka-source">Prashna Upaniṣad, 2.6</div>
+    </div>
+
+    <table class="term-table">
+      <tr><td>प्राण</td><td>Prāṇa</td><td>vital current; that which moves first and animates the rest</td></tr>
+      <tr><td>नाडी</td><td>Nāḍī</td><td>channel through which Prāṇa flows (developed fully in Topic 8)</td></tr>
+      <tr><td>प्रजापति</td><td>Prajāpati</td><td>lord of creatures; the sovereign role the text assigns to Prāṇa</td></tr>
+    </table>
+
+    <h3 class="sub">Why "Conscious Energy" and Not Simply "Oxygen"</h3>
+    <p>It is worth being precise about what this claim does and does not assert. It does not dispute that gas exchange sustains cellular life — that fact is not in question. The claim is additive: that the tradition identifies a second, organizing layer riding on top of respiration, one that behaves as though directed rather than merely mechanical, coordinating mind, senses, and speech together rather than operating as an isolated biochemical process. Later sections of this white paper (Topics 7, 23–27) will test each part of that additive claim against what respiratory physiology and neuroscience can actually confirm — some of it holds up structurally; some of it remains a doctrinal frame that current instrumentation cannot adjudicate.</p>
+
+    <div class="widget" id="w1">
+      <div class="widget-label">Interactive · The Living Current</div>
+      <svg width="100%" height="200" viewBox="0 0 600 200" id="riverSvg">
+        <path d="M20 100 C 150 40, 250 160, 380 100 S 550 40, 580 100" stroke="#3A3B44" stroke-width="18" fill="none" stroke-linecap="round"/>
+        <path id="riverGlow" d="M20 100 C 150 40, 250 160, 380 100 S 550 40, 580 100" stroke="#B9922A" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <g id="fields"></g>
+      </svg>
+      <div class="readout">The current flows continuously through five fields. Each field brightens as the current passes — none is nourished apart from the river.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Where in your life do you currently equate "life" with breathing alone? What changes if you consider breath as the visible edge of something larger it carries?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Prāṇa is presented not as breath itself but as the organizing current that breath makes visible — a claim of coordination across mind, senses, and speech, tested piece by piece in the sections ahead.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Sit for two minutes and simply notice the breath without changing it. Notice whether attention, mood, and posture shift together with it, unprompted.</div>
+    <div class="crosslinks">See also: <span>Topic 7 — Five Prāṇas</span> · <span>Topic 8 — Nāḍīs</span> · <span>Topic 23 — Prāṇāyāma</span></div>
+  </section>
+
+  <!-- TOPIC 2 -->
+  <section class="topic" id="t2">
+    <div class="topic-number">TOPIC 2</div>
+    <h2 class="topic-title">Citta: The Inner Sky</h2>
+    <div class="sanskrit-head mono">चित्त — the sky that contains, but is not, the clouds</div>
+
+    <p class="lede">Patañjali's Yoga Sūtras open not with a description of the divine, nor a cosmology, but with a definition of method: yoga is the stilling of the fluctuations of Citta. The sūtra is deliberately terse — four words in the original — and its brevity is itself instructive. It names the entire discipline by naming what it stops, rather than what it adds.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">योगश्चित्तवृत्तिनिरोधः</div>
+      <div class="shloka-translit">yogaś citta-vṛtti-nirodhaḥ</div>
+      <p class="shloka-trans">"Yoga is the stilling of the fluctuations of Citta."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 1.2</div>
+    </div>
+
+    <h3 class="sub">Citta Is Not "The Mind" in the Usual Sense</h3>
+    <p>Citta is often translated simply as "mind," but the word in Patañjali's usage names something closer to a field or medium than a faculty. Thought, emotion, memory, and perception all arise within Citta as modifications (vṛtti) of it, the way clouds arise within open sky — but Citta itself is not identical to any one of those modifications, any more than the sky is identical to a cloud passing through it. The distinction between the field and its contents is the entire practical point: a person suffering from an intrusive thought is not the thought, and does not need to argue the thought out of existence — the sky was never touched by the cloud's passing.</p>
+
+    <table class="term-table">
+      <tr><td>चित्त</td><td>Citta</td><td>the field of consciousness in which mental activity arises</td></tr>
+      <tr><td>वृत्ति</td><td>Vṛtti</td><td>a fluctuation, modification, or "whirl" within that field</td></tr>
+      <tr><td>निरोध</td><td>Nirodha</td><td>stilling, restraint — not suppression by force, but settling</td></tr>
+    </table>
+
+    <h3 class="sub">A Psychological Reading</h3>
+    <p>This distinction between a stable field and its passing contents has an approximate parallel in contemporary metacognitive frameworks, where the capacity to observe a thought as an event rather than as an identity — sometimes called decentering or defusion in clinical psychology — is associated with reduced reactivity to distressing mental content. The parallel is structural rather than a claim of historical influence in either direction: both frameworks independently locate psychological freedom in the relationship one takes to a thought, not in eliminating the thought itself.</p>
+
+    <div class="widget" id="w2">
+      <div class="widget-label">Interactive · Drag the Clouds Away</div>
+      <svg width="100%" height="220" viewBox="0 0 600 220" id="skySvg">
+        <rect x="0" y="0" width="600" height="220" fill="#181A22"/>
+        <g id="cloudGroup"></g>
+      </svg>
+      <div class="readout" id="skyReadout">Drag each cloud aside. The sky beneath was never cloudy — only obscured.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a thought that once felt inseparable from who you are. Looking back, was it weather — or was it sky?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>You are the sky, not the clouds. Citta is the stable field in which thought arises; the discipline of yoga targets the fluctuation, not the field itself.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>The next time a strong thought arises, silently note "a cloud" rather than engaging its content. Notice what remains once it has been named rather than argued with.</div>
+    <div class="crosslinks">See also: <span>Topic 10 — Citta Vṛttis</span> · <span>Topic 11 — The Four Parts of the Mind</span> · <span>Topic 24 — Breath Shapes Thought</span></div>
+  </section>
+
+  <!-- TOPIC 3 -->
+  <section class="topic" id="t3">
+    <div class="topic-number">TOPIC 3</div>
+    <h2 class="topic-title">Vāk: The Mystery of Speech</h2>
+    <div class="sanskrit-head mono">वाक् — the seed that becomes a forest</div>
+
+    <p class="lede">A word, once spoken, is not returned to the speaker. It moves outward, takes root in a listener, and grows into consequence the speaker cannot fully predict or retract — a single seed becoming, over time, a forest of effect. The Vedic hymns treat Vāk, speech, as a power of this magnitude: not incidental to human affairs, but load-bearing within them.</p>
+
+    <h3 class="sub">The Textual Claim</h3>
+    <p>The Ṛgveda's Asya Vāmīya hymn, ascribed to the seer Dīrghatamas, makes one of the earliest recorded claims about the structure of speech itself: that it exists in four graded levels, of which only the last is what human beings actually speak aloud. The other three remain hidden, unmoving, beneath ordinary utterance.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">चत्वारि वाक्परिमिता पदानि तानि विदुर्ब्राह्मणा ये मनीषिणः । गुहा त्रीणि निहिता नेङ्गयन्ति तुरीयं वाचो मनुष्या वदन्ति ॥</div>
+      <div class="shloka-translit">catvāri vāk parimitā padāni tāni vidur brāhmaṇā ye manīṣiṇaḥ | guhā trīṇi nihitā neṅgayanti turīyaṃ vāco manuṣyā vadanti</div>
+      <p class="shloka-trans">"Speech is measured out in four stages; these the wise brāhmaṇas know. Three, hidden in secret, do not move; the fourth stage is what people ordinarily speak."</p>
+      <div class="shloka-source">Ṛgveda, 1.164.45</div>
+    </div>
+
+    <p>Later grammarians and Tantric commentators name these four stages Para, Paśyantī, Madhyamā, and Vaikharī — a scheme this white paper develops fully in Topic 17. Introduced here, the point is narrower: ordinary spoken language, Vaikharī, is presented as only the final, most compressed stage of a much longer interior process, not as speech's point of origin.</p>
+
+    <table class="term-table">
+      <tr><td>वाक्</td><td>Vāk</td><td>speech; also personified as a goddess and creative cosmic power</td></tr>
+      <tr><td>पद</td><td>Pada</td><td>a "step" or "stage" — here, one of speech's four graded levels</td></tr>
+      <tr><td>गुहा</td><td>Guhā</td><td>the hidden cave or secret depth where three stages remain concealed</td></tr>
+    </table>
+
+    <div class="widget" id="w3">
+      <div class="widget-label">Interactive · Click a Word, See Its Forest</div>
+      <div class="btn-row" id="wordButtons">
+        <button class="word-btn" data-word="Truth spoken plainly">Truth</button>
+        <button class="word-btn" data-word="Criticism spoken in anger">Criticism</button>
+        <button class="word-btn" data-word="Praise offered sincerely">Praise</button>
+        <button class="word-btn" data-word="Silence, deliberately kept">Silence</button>
+      </div>
+      <div class="consequence-box" id="consequenceBox">Choose a word to trace where it grows.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Recall a sentence you spoke without much thought that later grew into something you did not intend. What was the seed, and what grew from it?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Speech creates worlds. The Vedic model treats an uttered word as the visible tip of a much larger, mostly hidden process — and as a cause with consequences that extend well past the moment of speaking.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before your next sentence in a difficult conversation, pause half a second and ask what forest this particular seed is likely to grow.</div>
+    <div class="crosslinks">See also: <span>Topic 17 — The Four Levels of Speech</span> · <span>Topic 19 — Truth (Satya)</span> · <span>Topic 26 — Breath Shapes Speech</span></div>
+  </section>
+
+  <!-- TOPIC 4 -->
+  <section class="topic" id="t4">
+    <div class="topic-number">TOPIC 4</div>
+    <h2 class="topic-title">Breath Before Thought</h2>
+    <div class="sanskrit-head mono">श्वास–मनस्–वाक् — the order in which the current moves</div>
+
+    <p class="lede">Topics 1 through 3 introduced Prāṇa, Citta, and Vāk as three separate architectures. This topic makes the connecting claim explicit: the tradition orders them causally rather than treating them as three parallel systems. Breath moves first; mind takes shape from and with it; speech is the final, outermost expression of both.</p>
+
+    <h3 class="sub">The Textual Basis</h3>
+    <p>Patañjali offers breath regulation directly as a method for calming an unsteady Citta, independent of any object of concentration — a notable claim, since most of the sūtras preceding and following it describe concentration on some object of attention.</p>
+
+    <div class="shloka-block">
+      <div class="shloka-sa">प्रच्छर्दनविधारणाभ्यां वा प्राणस्य</div>
+      <div class="shloka-translit">pracchardana-vidhāraṇābhyāṃ vā prāṇasya</div>
+      <p class="shloka-trans">"Or [the mind becomes calm] through the controlled exhalation and retention of the breath."</p>
+      <div class="shloka-source">Yoga Sūtras of Patañjali, 1.34</div>
+    </div>
+
+    <p>Read alongside Topics 1–3, the ordering this white paper works with is: Prāṇa (the current) organizes Citta (the field in which thought arises), and Citta in turn organizes Vāk (the word that finally leaves the body). Breath is therefore not one input among several into speech — in this model it is upstream of thought itself, which is itself upstream of the spoken word.</p>
+
+    <div class="widget" id="w4">
+      <div class="widget-label">Interactive · The Three Linked Pulses</div>
+      <svg width="100%" height="160" viewBox="0 0 600 160">
+        <text x="100" y="20" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="11">BREATH</text>
+        <circle id="pulse1" cx="100" cy="80" r="30" fill="rgba(185,146,42,0.15)" stroke="#B9922A" stroke-width="1.5"/>
+        <text x="300" y="20" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="11">MIND</text>
+        <circle id="pulse2" cx="300" cy="80" r="30" fill="rgba(156,90,52,0.15)" stroke="#9C5A34" stroke-width="1.5"/>
+        <text x="500" y="20" text-anchor="middle" fill="#525C8C" font-family="JetBrains Mono" font-size="11">SPEECH</text>
+        <circle id="pulse3" cx="500" cy="80" r="30" fill="rgba(82,92,140,0.15)" stroke="#525C8C" stroke-width="1.5"/>
+        <line x1="130" y1="80" x2="270" y2="80" stroke="#3A3B44" stroke-dasharray="3,3"/>
+        <line x1="330" y1="80" x2="470" y2="80" stroke="#3A3B44" stroke-dasharray="3,3"/>
+      </svg>
+      <div class="readout">Watch the pulse travel breath → mind → speech, each ring rising in turn, never simultaneously.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Notice, over the next hour, whether a shift in your breath ever precedes a shift in your mood or your words — rather than the reverse.</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>The tradition treats breath, mind, and speech as causally ordered rather than merely associated — placing breath first, and therefore placing it as the most practical point of intervention for what follows.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Before your next sentence of consequence, take one full breath first and notice whether the sentence itself changes.</div>
+    <div class="crosslinks">See also: <span>Topic 23 — Prāṇāyāma Beyond Breathing</span> · <span>Topic 24 — Breath Shapes Thought</span> · <span>Topic 26 — Breath Shapes Speech</span></div>
+  </section>
+
+  <!-- TOPIC 5 -->
+  <section class="topic" id="t5">
+    <div class="topic-number">TOPIC 5</div>
+    <h2 class="topic-title">Yogic Discipline as Technology</h2>
+    <div class="sanskrit-head mono">साधन — a repeatable instrument, not a belief</div>
+
+    <p class="lede">A recurring misreading treats yoga as a religious or devotional system requiring belief. The texts themselves do not present it this way. Patañjali's sūtras function as a manual of method: defined steps, expected effects, and — crucially — testability through the practitioner's own repeated experience, rather than through doctrinal assent.</p>
+
+    <h3 class="sub">Three Framings, Three Consequences</h3>
+    <p>How a practice is framed changes what a person expects from it, and what counts as evidence that it is working. The distinction below is not a claim that religion or ritual are without value — it is a claim about what kind of thing this particular tradition, on its own terms, is asking to be judged as.</p>
+
+    <div class="grid3">
+      <div class="mini-card"><span class="lbl">Not Religion</span>No required belief in a specific deity or cosmology is a precondition for the breath and attention techniques to produce their stated effects.</div>
+      <div class="mini-card"><span class="lbl">Not Mere Ritual</span>The techniques are not symbolic re-enactments whose value lies in correct performance alone, detached from any measurable inner effect.</div>
+      <div class="mini-card"><span class="lbl">A Technology</span>A repeatable method, applied the same way, is expected to produce a comparable inner result for any practitioner — the definition of a technology rather than a creed.</div>
+    </div>
+
+    <h3 class="sub">Why This Framing Matters for the Rest of This White Paper</h3>
+    <p>Every topic from this point forward — the koshas, the prāṇas, the guṇas, the levels of speech, the meditative absorptions of Section VI — is presented in the same spirit: as a claim to be tested against one's own breath, attention, and speech, and separately, wherever possible, against what contemporary physiology and psychology can independently confirm. This white paper does not ask for belief prior to practice. It asks for practice, and lets the result argue its own case.</p>
+
+    <div class="widget" id="w5">
+      <div class="widget-label">Interactive · Test the Frame</div>
+      <div class="grid3" id="techToggles">
+        <div class="tech-toggle" data-key="religion"><span class="lbl">Framed as Religion</span>Requires belief before practice. Success is measured by faith.</div>
+        <div class="tech-toggle" data-key="ritual"><span class="lbl">Framed as Ritual</span>Requires correct form before practice. Success is measured by adherence.</div>
+        <div class="tech-toggle" data-key="technology"><span class="lbl">Framed as Technology</span>Requires only repetition. Success is measured by observed inner effect.</div>
+      </div>
+      <div class="readout" id="techReadout">Click a frame to see what it would demand of you before you could even begin.</div>
+    </div>
+
+    <div class="reflect"><span class="lbl">Reflection</span>Which of the three frames above has, without your noticing, shaped your expectations of this white paper so far?</div>
+
+    <div class="takeaway">
+      <span class="lbl">Key Takeaway</span>
+      <p>Yogic discipline, on its own textual terms, asks to be judged as a repeatable inner technology — verifiable through practice — rather than as a system requiring prior belief or exact ceremonial form.</p>
+    </div>
+    <div class="practice"><span class="lbl">Practice</span>Pick one technique from Topics 1–4 (naming a thought as "a cloud," or one deliberate breath before speaking) and run it as an experiment for one day, without deciding in advance whether you believe in it.</div>
+    <div class="crosslinks">See also: <span>Topic 32 — Digital Age and Yogic Speech</span> · <span>Topic 36 — Daily Sādhana</span></div>
+  </section>
+
+  <footer class="synth">
+    <div class="topic-number">SYNTHESIS</div>
+    <h2>The Architecture Before the Word</h2>
+    <p>Section I has laid the ground the rest of this white paper stands on: Prāṇa as the animating current, Citta as the field that current organizes, and Vāk as the outermost expression of both — with breath established as causally prior to thought, and thought causally prior to speech. Topic 5 closes the section by naming what kind of claim all of this is: not a request for belief, but an invitation to test a repeatable method against one's own experience.</p>
+    <p>Section II builds directly on this foundation, opening the body's architecture in detail — the five Koshas, the five Prāṇas, the Nāḍīs, the Cakras, and the Citta Vṛttis — before Section III turns to yogic psychology proper.</p>
+    <div class="next">NEXT IN THE SERIES → Part Two — The Architecture of Consciousness (Topics 6–10): Five Koshas, Five Prāṇas, Nāḍīs, Cakras as Centers of Expression, and Citta Vṛttis.</div>
+  </footer>
+
+</div>
+
+<script>
+// ---------- Breath ribbon (ambient signature) ----------
+(function(){
+  const path = document.getElementById('ribbonPath');
+  const h = Math.max(document.body.scrollHeight, 1200);
+  document.querySelector('#ribbon svg').setAttribute('viewBox', `0 0 46 ${h}`);
+  let t = 0;
+  function draw(){
+    let d = 'M23 0 ';
+    const amp = 10, freq = 0.012;
+    for(let y=0;y<h;y+=8){
+      const x = 23 + Math.sin(y*freq + t)*amp;
+      d += `L${x.toFixed(1)} ${y} `;
+    }
+    path.setAttribute('d', d);
+    t += 0.012;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ---------- Topic 1: living river with five fields ----------
+(function(){
+  const fields = document.getElementById('fields');
+  const positions = [[80,40],[210,150],[330,55],[440,150],[560,55]];
+  const names = ['Body','Breath','Mind','Senses','Speech'];
+  positions.forEach((p,i)=>{
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect.setAttribute('x', p[0]-28); rect.setAttribute('y', p[1]-16);
+    rect.setAttribute('width', 56); rect.setAttribute('height', 32);
+    rect.setAttribute('rx', 2);
+    rect.setAttribute('fill', 'rgba(185,146,42,0.08)');
+    rect.setAttribute('stroke', '#3A3B44');
+    rect.setAttribute('class','fieldRect');
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('x', p[0]); text.setAttribute('y', p[1]+4);
+    text.setAttribute('text-anchor','middle');
+    text.setAttribute('fill', '#B9B3A2');
+    text.setAttribute('font-family','JetBrains Mono');
+    text.setAttribute('font-size','10');
+    text.textContent = names[i];
+    g.appendChild(rect); g.appendChild(text);
+    fields.appendChild(g);
+    g.dataset.idx = i;
+  });
+  const rects = fields.querySelectorAll('.fieldRect');
+  let t = 0;
+  function anim(){
+    rects.forEach((r,i)=>{
+      const phase = (t*0.6 - i*0.9) % 6.28;
+      const glow = Math.max(0, Math.sin(phase));
+      r.setAttribute('fill', `rgba(185,146,42,${(0.06+glow*0.35).toFixed(2)})`);
+      r.setAttribute('stroke', glow>0.5 ? '#B9922A' : '#3A3B44');
+    });
+    t += 0.04;
+    requestAnimationFrame(anim);
+  }
+  anim();
+})();
+
+// ---------- Topic 2: draggable clouds ----------
+(function(){
+  const svg = document.getElementById('skySvg');
+  const group = document.getElementById('cloudGroup');
+  const readout = document.getElementById('skyReadout');
+  const cloudDefs = [[120,70,'Worry'],[300,50,'Doubt'],[460,90,'Old memory'],[220,140,'Judgment'],[400,150,'Distraction']];
+  let remaining = cloudDefs.length;
+  cloudDefs.forEach(([cx,cy,label], idx)=>{
+    const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+    g.setAttribute('class','cloud');
+    g.setAttribute('transform', `translate(${cx},${cy})`);
+    const ellipse = document.createElementNS('http://www.w3.org/2000/svg','ellipse');
+    ellipse.setAttribute('rx', 42); ellipse.setAttribute('ry', 20);
+    ellipse.setAttribute('fill', '#3A3B44');
+    ellipse.setAttribute('opacity','0.85');
+    const text = document.createElementNS('http://www.w3.org/2000/svg','text');
+    text.setAttribute('text-anchor','middle'); text.setAttribute('y',4);
+    text.setAttribute('fill','#E9E2D0'); text.setAttribute('font-family','JetBrains Mono'); text.setAttribute('font-size','10');
+    text.textContent = label;
+    g.appendChild(ellipse); g.appendChild(text);
+    group.appendChild(g);
+
+    let dragging = false, offX=0, offY=0;
+    g.addEventListener('pointerdown', (e)=>{
+      dragging = true;
+      const pt = svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+      offX = loc.x - cx; offY = loc.y - cy;
+      g.setPointerCapture(e.pointerId);
+    });
+    g.addEventListener('pointermove', (e)=>{
+      if(!dragging) return;
+      const pt = svg.createSVGPoint(); pt.x=e.clientX; pt.y=e.clientY;
+      const loc = pt.matrixTransform(svg.getScreenCTM().inverse());
+      g.setAttribute('transform', `translate(${loc.x-offX},${loc.y-offY})`);
+    });
+    g.addEventListener('pointerup', ()=>{
+      dragging = false;
+      g.classList.add('gone');
+      remaining -= 1;
+      if(remaining===0){ readout.textContent = 'The sky was always clear. Every cloud that passed through it left no mark.'; }
+      else{ readout.textContent = `${remaining} cloud${remaining===1?'':'s'} remaining — the sky beneath is unchanged either way.`; }
+    });
+  });
+})();
+
+// ---------- Topic 3: word consequence ----------
+(function(){
+  const buttons = document.querySelectorAll('#wordButtons .word-btn');
+  const box = document.getElementById('consequenceBox');
+  const consequences = {
+    'Truth spoken plainly': 'A truth plainly spoken tends to settle a situation rather than multiply it — but it also cannot be called back once heard.',
+    'Criticism spoken in anger': 'Criticism carried on an angry breath is rarely received as the correction it intended; it is received first as the anger, and remembered that way.',
+    'Praise offered sincerely': 'Sincere praise tends to reproduce itself — the listener often looks for a reason to offer it onward to someone else.',
+    'Silence, deliberately kept': 'A deliberate silence is still a form of speech: it communicates restraint, withheld judgment, or unresolved feeling, and the listener fills the gap with their own interpretation.'
+  };
+  buttons.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      box.textContent = consequences[b.dataset.word];
+    });
+  });
+})();
+
+// ---------- Topic 4: three linked pulses ----------
+(function(){
+  const p1 = document.getElementById('pulse1');
+  const p2 = document.getElementById('pulse2');
+  const p3 = document.getElementById('pulse3');
+  let t = 0;
+  function anim(){
+    const cycle = (t % 6);
+    function radiusFor(center){
+      const d = Math.abs(cycle-center);
+      const eff = Math.max(0, 1 - d);
+      return 30 + eff*14;
+    }
+    p1.setAttribute('r', radiusFor(0.5));
+    p2.setAttribute('r', radiusFor(2.5));
+    p3.setAttribute('r', radiusFor(4.5));
+    t += 0.03;
+    requestAnimationFrame(anim);
+  }
+  anim();
+})();
+
+// ---------- Topic 5: frame toggles ----------
+(function(){
+  const toggles = document.querySelectorAll('#techToggles .tech-toggle');
+  const readout = document.getElementById('techReadout');
+  const demands = {
+    religion: 'Under this frame, you would need to first accept a cosmology or deity before any technique "counts" — the practice becomes contingent on prior belief.',
+    ritual: 'Under this frame, you would need to perform the form exactly right — success is measured by correctness of performance, regardless of any inner shift.',
+    technology: 'Under this frame, you need only repeat the method and observe the result — belief is neither required nor sufficient; the outcome is the evidence.'
+  };
+  toggles.forEach(t=>{
+    t.addEventListener('click', ()=>{
+      toggles.forEach(x=>x.style.borderColor='var(--rule)');
+      t.style.borderColor = 'var(--gold)';
+      readout.textContent = demands[t.dataset.key];
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
